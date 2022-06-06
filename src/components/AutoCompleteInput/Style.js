@@ -17,7 +17,7 @@ export const theme = createTheme({
                 root:{
                     border: '1px solid #DCDCDC',
                     borderRadius: 5,
-                    background:'#FDFBFF',
+                    background:'#F4F5F7',
                     padding: '0px!important',
                 },
                 notchedOutline:{
@@ -69,7 +69,8 @@ export const theme = createTheme({
                         border:'1px solid #DCDCDC',
                         padding:'4px',
                         borderRadius:'5px',
-                        marginLeft:'-5px'
+                        marginLeft:'-5px',
+                        background:'#FFFFFF',
                     }
                 }
                

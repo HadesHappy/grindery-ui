@@ -1,9 +1,9 @@
 import React from 'react'
 import {Autocomplete , Icon , TextField , InputAdornment , Typography , Box} from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import {theme} from './Style'
+import {theme} from  './Style';
 
-function Select({options,label,placeholder,size='small',onChange}) {
+function AutoCompleteInput({options,label,placeholder,size='small',onChange}) {
 
 
   const [isIcon, setIcon] = React.useState(true);
@@ -64,4 +64,4 @@ function Select({options,label,placeholder,size='small',onChange}) {
   )
 }
 
-export default Select
+export default AutoCompleteInput

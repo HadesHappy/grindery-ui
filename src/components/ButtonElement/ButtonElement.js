@@ -2,19 +2,44 @@ import React from 'react'
 import { Button } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import {theme} from './Style';
+import PropTypes from 'prop-types'
 
-function ButtonElement ({variant,value,size,color,icon, disabled=false, onClick}) {
+function ButtonElement ({variant,value,size,color,icon, disabled, onClick}) {
   return (
       <ThemeProvider theme={theme}>
         {icon?  
             <Button variant={variant} size={size} color={color} disabled={disabled} onClick={onClick}
               startIcon={
-                <img src={'./assets/img/google.png'} alt={value} />
+                  <img src={icon} height={16} width={16} alt={value} />
               } 
             >{value}</Button>
         :<Button variant={variant} size={size} color={color} disabled={disabled} onClick={onClick}>{value}</Button>}
       </ThemeProvider>
   )
+}
+
+ButtonElement.propTypes = {
+
+    variant: PropTypes.string,
+    value: PropTypes.string,
+    size: PropTypes.string,
+    color: PropTypes.string,
+    icon: PropTypes.string,
+    disabled: PropTypes.bool,
+    onClick: PropTypes.func
+
+}
+
+ButtonElement.defaultProps = {
+
+    variant: 'contained',
+    value: 'Continue',
+    size: 'large',
+    color: 'secondary',
+    icon: '',
+    disabled: false,
+    onClick: undefined,
+
 }
 
 export default ButtonElement

@@ -25,9 +25,22 @@ export const theme = createTheme({
                     fontSize: 16,
                     lineHeight:'150%',
                     textAlign: 'center',
+                    textTransform: 'none',
                     color: '#FFFFFF',
                     boxShadow: 'initial',
                     margin: '10px 0px',
+                    '& span':{
+                        marginRight: '10px',
+                        '& img':{
+                            padding:'4px',
+                            backgroundColor:'#FFFFFF',
+                            borderRadius:5,
+                            border:'1px solid #DCDCDC'
+                        }
+                    },
+                    '&:hover':{
+                        opacity:0.7,
+                    }   
                 },
                 containedPrimary: {
                    

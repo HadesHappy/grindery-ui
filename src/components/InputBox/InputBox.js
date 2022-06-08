@@ -1,14 +1,18 @@
 import React from 'react'
-import { Typography, TextField } from '@mui/material';
+import { Typography, TextField , Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import {theme} from './Style';
 import PropTypes from 'prop-types'
 
 
-function InputBox({placeholder,size,onChange,value,type}) {
+function InputBox({placeholder,size,onChange,value,label,required,texthelper,type}) {
   return (
     <ThemeProvider theme={theme}>
-            <Typography variant="p">DAO address</Typography>
+      <Box component={"div"} sx={{marginBottom:'20px'}}>
+          <Box component={"div"} sx={{display:'flex' , '& > .required ':{marginLeft:'auto' , fontSize: '14px' , color: '#898989'}} }>
+            <Typography variant="p">{label}</Typography>
+            {required?<Typography variant="p" className="required">{"(required)"}</Typography>:''}
+          </Box>  
             {type==='text'?   
             <TextField fullWidth placeholder={placeholder} size={size} onChange={onChange} value={value} />
             :
@@ -22,6 +26,8 @@ function InputBox({placeholder,size,onChange,value,type}) {
             maxRows={4}
             />
         }
+        <Typography variant="p" className="texthelper">{texthelper}</Typography>
+      </Box>
     </ThemeProvider>
   )
 }
@@ -33,7 +39,8 @@ InputBox.propTypes = {
     size: PropTypes.string,
     onChange: PropTypes.func,
     value: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    label: PropTypes.string
 }
 
 InputBox.defaultProps = {
@@ -41,7 +48,8 @@ InputBox.defaultProps = {
   size:'large',
   onChange: undefined,
   value: '',
-  type: 'text'
+  type: 'text',
+  label: '',
 }
 
 export default InputBox

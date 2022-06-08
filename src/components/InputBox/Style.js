@@ -17,7 +17,9 @@ export const theme = createTheme({
         MuiOutlinedInput:{
             styleOverrides:{
                 root:{
+                    marginTop:'4px',
                     padding:'0px',
+                    height:'60px',
                     '& input':{
                         padding: '15px 5px 15px 15px',
                         border: '1px solid #DCDCDC',
@@ -50,7 +52,22 @@ export const theme = createTheme({
 
                 }
             }
+        },
+        MuiBox:{
+            styleOverrides:{
+                root:{
+                    '& .texthelper ':{
+                        fontStyle: 'normal',
+                        fontWeight: '400',
+                        fontSize: '14px',
+                        lineHeight: '150%',
+                        color: '#898989',
+                        marginBottom: '20px',
+                    },
+                }
+            }
         }
+        
     }
 
 })

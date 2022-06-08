@@ -15,10 +15,17 @@ export const theme = createTheme({
         MuiOutlinedInput:{
             styleOverrides:{
                 root:{
+                    marginTop:'4px',
                     border: '1px solid #DCDCDC',
                     borderRadius: 5,
                     background:'#F4F5F7',
-                    padding: '0px!important',
+                    padding: '0px 10px 0px 10px!important',
+                    '& > img':{
+                        border:'1px solid #DCDCDC',
+                        padding:'4px',
+                        borderRadius:'5px',
+                        background:'#FFFFFF',
+                    }
                 },
                 notchedOutline:{
                     border: 0,
@@ -61,7 +68,7 @@ export const theme = createTheme({
         MuiInputAdornment:{
             styleOverrides:{
                 root:{
-                    marginLeft:'15px',
+                    marginLeft:'0px',
                     marginRight:'0px',
                     width:'24px',
                     height:'24px',

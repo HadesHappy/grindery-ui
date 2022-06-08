@@ -16,108 +16,170 @@ import SearchIcon from "@mui/icons-material/Search";
 import {theme} from './Style';
 
 
-function SelectInput({options,type, placeholder,iconDefault,iconUrl, onChange}) {
+function SelectInput({options, type, label, placeholder , variant, texthelper,  required, onChange}) {
 
     const containsText = (text, searchText) =>
     text.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
 
-
-    const [selectedOption, setSelectedOption] = useState('');
-
-
     const [searchText, setSearchText] = useState("");
-    
-
 
     const displayedOptions = useMemo(
-      () => options.filter((option) => containsText(option.value, searchText)),
+      () => options.filter((option) => containsText(option.label, searchText)),
       [searchText]
     );
 
-    const [isIcon, setIcon] = useState(true);
-    const [value, setValue] = useState('');
-  
-  
+
+    const [newListValue,setNewListValues] = useState([]);
   
     const handleChange = (event) => {
-      onChange(event)
-      setSelectedOption(event.target.value)
-      if(!event.target.value){
-        setIcon(true);
+
+      if(!Array.isArray(event.target.value)){
+        setNewListValues([event.target.value]);
       }else{
-        setIcon(false);
-        setValue(event.target.value);
+        setNewListValues(event.target.value);
       }
+      
+      onChange(event.target.value)
+
     }
+
 
   return (
     <ThemeProvider theme={theme}>
       {type === 'default' ? (
-        <>
-        <Typography variant="p">{'Test'}</Typography>      
+        <Box component={"div"} sx={{marginBottom:'20px'}}>
+          <Box component={"div"} sx={{display:'flex' , '& > .required ':{marginLeft:'auto' , fontSize: '14px' , color: '#898989'}} }>
+            <Typography variant="p">{label}</Typography>
+            {required?<Typography variant="p" className="required">{"(required)"}</Typography>:''}
+          </Box>      
         <FormControl fullWidth>
-          <InputLabel>{placeholder}</InputLabel>
+          {newListValue.length===0?<InputLabel disableAnimation shrink={false} focused={false}>{placeholder}</InputLabel>:''}
           <Select
             MenuProps={{ autoFocus: false }}
             labelId="search-select-label"
-            id="search-select"
-            value={selectedOption}
+            id={newListValue.length!==0?"search-select":"search-select-empty"}
+            value={newListValue}
+            multiple={false}
             onChange={handleChange}
             onClose={() => setSearchText("")}
-            startAdornment = {
-              iconDefault?(<Box component="div" className="img_box" sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
-              <img
-                loading="lazy"
-                width="16"
-                height="16"
-                src={iconUrl}
-                alt={iconUrl}
-              />
-              </Box>):isIcon===false?(
-                <Box component="div" className="img_box" sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
-                    <img
-                      loading="lazy"
-                      width="16"
-                      height="16"
-                      src={value.icon}
-                      alt={value.value}
-                    />
-                </Box>):''
+            renderValue={() =>
+              /*options.map((option, i) => (
+                option.value===newValue?(
+                  <Box key={i} component="div" className="img_box_icon"  sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
+                    {option.icon?
+                      (typeof option.icon === 'string'?
+                      <img
+                        loading="lazy"
+                        width="16"
+                        height="16"
+                        src={option.icon}
+                        alt={option.label}
+                      />:
+                        option.icon
+                      )
+                    :''}
+                    {option.label}
+                </Box>
+                ):''
+              ))*/
+              <Box component={"div"} className="boxItems">
+              {newListValue.map((option, i) => (
+                  <Box key={i} component="div" className="img_box_icon"  sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
+                    {option.icon?
+                      (typeof option.icon === 'string'?
+                      <img
+                        loading="lazy"
+                        width="16"
+                        height="16"
+                        src={option.icon}
+                        alt={option.label}
+                      />:
+                        option.icon
+                      )
+                    :''}
+                    {option.label}
+                  </Box>
+              ))}
+              </Box>
             }
-            renderValue={() => selectedOption.value}
           >
-            {options.map((option, i) => (
+
+            {displayedOptions.map((option, i) => (
               <MenuItem key={i} value={option}>
                 <Box component="div" sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
-                  <img src={option.icon} width={16} height={16} alt={option.value}></img>
-                  {option.value}
+                  {option.icon?
+                    (typeof option.icon === 'string'?
+                        <img src={option.icon} width={16} height={16} alt={option.label}></img>:option.icon
+                    ):''}
+                  {option.label}
                 </Box>
               </MenuItem>
             ))}
           </Select>
+          <Typography variant="p" className="texthelper">{texthelper}</Typography>
         </FormControl>
-        </>
+        </Box>
       ): type==='searchLabel' ? (
-        <>
-        <Typography variant="p">{'Test'}</Typography>
+        <Box  component={"div"} sx={{marginBottom:'20px'}}>
+        <Box component={"div"} sx={{display:'flex' , '& > .required ':{marginLeft:'auto' , fontSize: '14px' , color: '#898989'}} }>
+          <Typography variant="p">{label}</Typography>
+          {required?<Typography variant="p" className="required">{"(required)"}</Typography>:''}
+        </Box>
         <FormControl fullWidth>
-        <InputLabel>{placeholder}</InputLabel>
+          {newListValue.length===0?<InputLabel disableAnimation shrink={false} focused={false}>{placeholder}</InputLabel>:''}
           <Select
             MenuProps={{ autoFocus: true }}
             labelId="search-select-label"
-            id="search-select"
-            value={selectedOption}
+            id={newListValue.length!==0?"search-select":"search-select-empty"}
+            value={newListValue}
+            multiple={true}
             onChange={handleChange}
             onClose={() => setSearchText("")}
-            renderValue={() => <box component="div" className="box-seleted-icon">
-              <img
+            renderValue={() => 
+            
+
+              /* *
+              options.map((option, i) => (
+                option.value===newValue?(
+                  <Box key={i} component="div" className={variant==="default"?"img_box_icon":"full_img_box"}  sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
+                    {option.icon?
+                      (typeof option.icon === 'string'?
+                      <img
+                        loading="lazy"
+                        width="16"
+                        height="16"
+                        src={option.icon}
+                        alt={option.label}
+                      />:
+                        option.icon
+                      )
+                    :''}
+                    {option.label}
+                </Box>
+                ):''
+              ))*/
+              <Box component={"div"} className="boxItems">
+              {newListValue.map((option, i) => (
+                <Box key={i} component="div" className={variant==="default"?"img_box_icon":"full_img_box"} sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
+                  {option.icon?
+                    (typeof option.icon === 'string'?
+                    <img
                       loading="lazy"
                       width="16"
                       height="16"
-                      src={selectedOption.icon}
-                      alt={selectedOption.value}
-              />    
-              {selectedOption.value}</box>}
+                      src={option.icon}
+                      alt={option.label}
+                    />:
+                      option.icon
+                    )
+                  :''}
+                  {option.label}
+                </Box>
+            ))}
+
+            </Box>
+            
+            }
             
           >
             {<ListSubheader>
@@ -144,94 +206,21 @@ function SelectInput({options,type, placeholder,iconDefault,iconUrl, onChange}) 
               </ListSubheader>}
             {displayedOptions.map((option, i) => (
               <MenuItem key={i} value={option}>
-                <Box component="li">
-                  <img src={option.icon} width={16} height={16} alt={option.value}></img>
-                  <h5>{option.value}</h5>
+                <Box component="div" className={variant==="full"?"full_img_box":'img_box_icon'}>
+                  {option.icon?
+                    (typeof option.icon === 'string'?
+                        <img src={option.icon} width={16} height={16} alt={option.label}></img>:option.icon
+                    ):''}
+                  <h5>{option.label}</h5>
                   <span>{option.reference}</span>
                 </Box>
               </MenuItem>
             ))}
           </Select>
+          <Typography variant="p" className="texthelper">{texthelper}</Typography>
         </FormControl>
-        </>
-      ):(
-        <>
-        <Typography variant="p">{'Select 3'}</Typography>
-        <FormControl fullWidth>
-          <InputLabel>{placeholder}</InputLabel>
-          <Select
-            MenuProps={{ autoFocus: true}}
-            labelId="search-select-label"
-            id="search-select"
-            value={selectedOption}
-            onChange={handleChange}
-            onClose={() => setSearchText("")}
-            startAdornment = {
-              iconDefault && isIcon===true?(<Box component="div" className="img_box_icon" sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
-              <img
-                loading="lazy"
-                width="16"
-                height="16"
-                src={iconUrl}
-                alt={iconUrl}      
-              />
-              </Box>):isIcon===false?(
-                <Box component="div" className="img_box_icon" sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
-                    <img
-                      loading="lazy"
-                      width="16"
-                      height="16"
-                      src={value.icon}
-                      alt={value.value}
-                    />
-                </Box>):''
-            }
-            renderValue={() => <box component="div" className="box-seleted-icon">
-              <img
-                      loading="lazy"
-                      width="16"
-                      height="16"
-                      src={selectedOption.icon}
-                      alt={selectedOption.value}
-              />    
-              {selectedOption.value}</box>}   
-          >
-            {<ListSubheader>
-              <TextField
-                size="small"
-                autoFocus
-                placeholder="Search..."
-                fullWidth
-                id="search-input"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  )
-                }}
-                onChange={(e) => setSearchText(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key !== "Escape") {
-                    e.stopPropagation();
-                  }
-                }}
-              />
-              </ListSubheader>}
-            {displayedOptions.map((option, i) => (
-              <MenuItem key={i} value={option}>
-                <Box component="li" className="onlyImg">
-                  <img src={option.icon} width={16} height={16} alt={option.value}></img>
-                  <h5>{option.value}</h5>
-                  <span>{option.reference}</span>
-                </Box>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        </>
-
-      )
+        </Box>
+      ):''
       
       }
 
@@ -245,7 +234,8 @@ SelectInput.propTypes = {
   options: PropTypes.array.isRequired,
   placeholder: PropTypes.string,
   type: PropTypes.string,
-  onChange: PropTypes.func  
+  onChange: PropTypes.func,
+  variant: PropTypes.string,
 
 }
 
@@ -255,6 +245,7 @@ SelectInput.defaultProps = {
   options: [],
   placeholder: '0x',
   type: 'default',
+  variant:'default',
   onChange: () => undefined
 
 }

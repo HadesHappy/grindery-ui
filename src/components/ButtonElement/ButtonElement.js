@@ -4,16 +4,16 @@ import { ThemeProvider } from '@mui/material/styles';
 import {theme} from './Style';
 import PropTypes from 'prop-types'
 
-function ButtonElement ({variant,value,size,color,icon, disabled, onClick}) {
+function ButtonElement ({variant,value,size,color,icon, disabled, type, onClick}) {
   return (
       <ThemeProvider theme={theme}>
         {icon?  
-            <Button variant={variant} size={size} color={color} disabled={disabled} onClick={onClick}
+            <Button variant={variant} size={size} color={color} type={type} disabled={disabled} onClick={onClick}
               startIcon={
                   <img src={icon} height={16} width={16} alt={value} />
               } 
             >{value}</Button>
-        :<Button variant={variant} size={size} color={color} disabled={disabled} onClick={onClick}>{value}</Button>}
+        :<Button variant={variant} size={size} color={color} type={type} disabled={disabled} onClick={onClick}>{value}</Button>}
       </ThemeProvider>
   )
 }
@@ -26,7 +26,8 @@ ButtonElement.propTypes = {
     color: PropTypes.string,
     icon: PropTypes.string,
     disabled: PropTypes.bool,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    type: PropTypes.string
 
 }
 
@@ -39,6 +40,7 @@ ButtonElement.defaultProps = {
     icon: '',
     disabled: false,
     onClick: undefined,
+    type: 'button'
 
 }
 

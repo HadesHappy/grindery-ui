@@ -11,36 +11,64 @@ export const theme = createTheme({
             lineHeight: '150%',
         }
     },
+    '& .header-labels':{	
+        display:'flex',
+    },
     components:{
+      
         MuiOutlinedInput:{
             styleOverrides:{
                 root:{
                     border: '1px solid #DCDCDC',
                     borderRadius: 5,
                     background:'#F4F5F7',
-                    padding: '0px!important',
+                    padding: '0px!important',       
+                    '& #search-select':{
+                        border: '2px solid #8C30F5'
+                    },
                 },
                 notchedOutline:{
                     border: 0,
                 },
                 input:{
-                    padding: '15px 5px 15px 5px',
-                }
+                    padding: '15px 15px 15px 15px!important',
+                    display: 'flex',
+                },
             }
         },
         MuiFormControl:{
             styleOverrides:{
                 root:{
+                    height:'60px',
+                    marginTop:'4px',
                     "& .Mui-focused": {
-                        border: '2px solid #8C30F5',
+                        '& #search-select':{
+                            border: '2px solid #8C30F5',
+                        },
+                        '& #search-select-empty':{
+                            border: '2px solid #8C30F5',
+                        }
+                    },
+                    '& .texthelper ':{
+                        fontStyle: 'normal',
+                        fontWeight: '400',
+                        fontSize: '14px',
+                        lineHeight: '150%',
+                        color: '#898989',
+                        marginBottom: '20px',
+                    },
+                    '& .boxItems':{
+                        position:'absolute',
+                        top:'12px',
+                        display:'flex',
                     },
                     "& #search-input": {
                         padding: '10px 5px 10px 10px',
                     },
-                    "& .MuiInputLabel-shrink": {
+                    /*"& .MuiInputLabel-shrink": {
                         display: 'none',
-                    },
-                    "& .img_box": {
+                    },*/
+                    "& .full_img_box": {
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '5px',
@@ -53,18 +81,19 @@ export const theme = createTheme({
                         fontWeight: '400',
                         fontSize: '16px',
                         lineHeight: '150%',
-                        position: 'absolute',
-                        top: '13px',
-                        left: '10px'
+                        marginRight: '10px',
+                    },
+
+                    "& .full_img_box img":{
+                        border:0,
+                        marginRight:0,
                     },
 
                     "& .img_box_icon": {
-                        position: 'absolute',
-                        top: '13px',
-                        left: '10px',
-                        display: 'inline-flex',
+                        display:'flex',
                         alignItems: 'center',
-                        gap: '5px',
+                        marginRight: '5px',
+                        padding: '5px',
                     },
                     "& .img_box_icon > img": {
                         background: '#fff',
@@ -84,24 +113,22 @@ export const theme = createTheme({
         MuiSelect:{
             styleOverrides:{
                 select:{
-                    '& > box':{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '5px',
-                        border: '1px solid #898989',
-                        padding: '2px 4px 2px 4px',
-                        borderRadius: '5px',
-                        background: '#fff',
-                        fontFamily: 'Roboto',
-                        fontStyle: 'normal',
-                        fontWeight: '400',
-                        fontSize: '16px',
-                        lineHeight: '150%',
+                    '& .box-seleted-icon':{
                         position: 'absolute',
-                        top: '12px',
-                        left: '10px'
-                    }
-                }
+                        left: '15px',
+                        top: '10px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        border:'1px solid #DCDCDC',
+                        padding: '5px',
+                        gap: '5px',
+                        borderRadius: '5px',
+                        background:'#FFFFFF',
+                    },
+                    
+                },
+
+                
             }
         },
         MuiInputAdornment:{
@@ -132,16 +159,29 @@ export const theme = createTheme({
         MuiMenuItem:{
             styleOverrides:{
                 root:{
-                    padding:'5px 15px 5px 15px',
-                    '& li':{
-                            display:'flex',
-                            alignItems:'center',
-                            border:'1px solid #DCDCDC',
-                            padding: '5px',
-                            gap: '5px',
-                            borderRadius: '5px',
-                            background:'#FFFFFF',
-                    
+                    height:'34px',
+                    margin:'4px 0px',
+                    padding:'5px 15px 5px 15px',     
+                    "& .full_img_box": {
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        border: '1px solid #DCDCDC',
+                        padding: '4px',
+                        borderRadius: '5px',
+                        background: '#fff',
+                        fontFamily: 'Roboto',
+                        fontStyle: 'normal',
+                        fontWeight: '400',
+                        fontSize: '16px',
+                        lineHeight: '150%',
+                    },
+                    '& .img_box_icon img':{
+                        border:'1px solid #DCDCDC',
+                        padding: '5px',
+                        gap: '5px',
+                        borderRadius: '5px',
+                        background:'#FFFFFF',
                     },
                     '& .onlyImg':{
                         border:0,

@@ -12,6 +12,14 @@ export const theme = createTheme({
             fontFamily: 'Roboto',
             
         },
+        span:{
+            fontFamily:'"Roboto"',
+            fontStyle: 'normal',
+            fontWeight: '400',
+            fontSize: '14px',
+            lineHeight: '150%',
+            color: '#898989'
+        }
     },
     components:{	
         MuiOutlinedInput:{

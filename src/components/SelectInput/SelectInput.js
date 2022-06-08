@@ -94,7 +94,17 @@ function SelectInput({options, type, label, placeholder , variant, texthelper,  
                         src={option.icon}
                         alt={option.label}
                       />:
-                        option.icon
+                        option.icon.map((icon,i)=>(
+                          <img
+                          key={i}
+                          loading="lazy"
+                          width="16"
+                          height="16"
+                          src={icon}
+                          alt={option.label}
+                          className={i>0?"icon_second":"icon_first"}
+                         />
+                        ))
                       )
                     :''}
                     {option.label}
@@ -109,7 +119,24 @@ function SelectInput({options, type, label, placeholder , variant, texthelper,  
                 <Box component="div" sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
                   {option.icon?
                     (typeof option.icon === 'string'?
-                        <img src={option.icon} width={16} height={16} alt={option.label}></img>:option.icon
+                        <img
+                          loading="lazy"
+                          width="16"
+                          height="16"
+                          src={option.icon}
+                          alt={option.label}
+                        />:
+                          option.icon.map((icon,i)=>(
+                          <img
+                          key={i}
+                          loading="lazy"
+                          width="16"
+                          height="16"
+                          src={icon}
+                          alt={option.label}
+                          className={i>0?"icon_second":"icon_first"}
+                         />
+                        ))
                     ):''}
                   {option.label}
                 </Box>
@@ -170,7 +197,17 @@ function SelectInput({options, type, label, placeholder , variant, texthelper,  
                       src={option.icon}
                       alt={option.label}
                     />:
-                      option.icon
+                      option.icon.map((icon,i)=>(
+                      <img
+                      key={i}
+                      loading="lazy"
+                      width="16"
+                      height="16"
+                      src={icon}
+                      alt={option.label}
+                      className={i>0?"icon_second":"icon_first"}
+                     />
+                    ))
                     )
                   :''}
                   {option.label}
@@ -209,7 +246,24 @@ function SelectInput({options, type, label, placeholder , variant, texthelper,  
                 <Box component="div" className={variant==="full"?"full_img_box":'img_box_icon'}>
                   {option.icon?
                     (typeof option.icon === 'string'?
-                        <img src={option.icon} width={16} height={16} alt={option.label}></img>:option.icon
+                    <img
+                      loading="lazy"
+                      width="16"
+                      height="16"
+                      src={option.icon}
+                      alt={option.label}
+                    />:
+                      option.icon.map((icon,i)=>(
+                      <img
+                      key={i}
+                      loading="lazy"
+                      width="16"
+                      height="16"
+                      src={icon}
+                      alt={option.label}
+                      className={i>0?"icon_second":"icon_first"}
+                     />
+                    ))
                     ):''}
                   <h5>{option.label}</h5>
                   <span>{option.reference}</span>

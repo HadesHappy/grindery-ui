@@ -26,7 +26,7 @@ function InputBox({placeholder,size,onChange,value,label,required,texthelper,typ
             maxRows={4}
             />
         }
-        <Typography variant="p" className="texthelper">{texthelper}</Typography>
+        <Typography variant="span" className="texthelper">{texthelper}</Typography>
       </Box>
     </ThemeProvider>
   )

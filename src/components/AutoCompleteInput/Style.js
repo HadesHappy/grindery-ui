@@ -9,6 +9,14 @@ export const theme = createTheme({
             fontStyle: 'normal',
             fontWeight: '400',
             lineHeight: '150%',
+        },
+        span:{
+            fontFamily:'"Roboto"',
+            fontStyle: 'normal',
+            fontWeight: '400',
+            fontSize: '14px',
+            lineHeight: '150%',
+            color: '#898989'
         }
     },
     components:{
@@ -25,6 +33,12 @@ export const theme = createTheme({
                         padding:'4px',
                         borderRadius:'5px',
                         background:'#FFFFFF',
+                    },
+                    '& .icon_second':{
+                        marginLeft:'-5px',
+                    },
+                    '& .icon_first':{
+                        zIndex:'1',
                     }
                 },
                 notchedOutline:{
@@ -38,8 +52,27 @@ export const theme = createTheme({
         MuiAutocomplete:{
             styleOverrides:{
                 root:{
+                    height:'60px',
                     '& .MuiInputBase-sizeSmall':{	
                         width:'240px',
+                    },
+                },
+                option:{
+                    fontSize: '16px',
+                    color: '#0B0D17',
+                    '&:hover':{
+                        backgroundColor:'#FDFBFF', 
+                    },
+                    '& .icon_second':{
+                        marginLeft:'-12px',
+                        backgroundColor:'#FFFFFF',
+                    },
+                    '& .icon_first':{
+                        zIndex:'1',
+                        backgroundColor:'#FFFFFF',
+                    },
+                    '& img':{
+                        backgroundColor:'#FFFFFF',
                     }
                 },
                 input:{

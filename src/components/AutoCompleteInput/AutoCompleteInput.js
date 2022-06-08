@@ -3,7 +3,7 @@ import {Autocomplete , Icon , TextField , InputAdornment , Typography , Box} fro
 import { ThemeProvider } from '@mui/material/styles';
 import {theme} from  './Style';
 
-function AutoCompleteInput({options,label,placeholder,size,required,texthelper,onChange}) {
+function AutoCompleteInput({options,label,placeholder,size,required,texthelper, value, onChange}) {
 
 
   const [isIcon, setIcon] = React.useState(true);
@@ -62,7 +62,17 @@ function AutoCompleteInput({options,label,placeholder,size,required,texthelper,o
                         src={option.icon}
                         alt={option.label}
                       />:
-                        option.icon
+                        option.icon.map((icon,i)=>(
+                        <img
+                        key={i}
+                        loading="lazy"
+                        width="16"
+                        height="16"
+                        src={icon}
+                        alt={option.label}
+                        className={i>0?"icon_second":"icon_first"}
+                       />
+                      ))
                       )
                 :''}
                 {option.label }
@@ -75,14 +85,31 @@ function AutoCompleteInput({options,label,placeholder,size,required,texthelper,o
             </InputAdornment> ): 
               (valueData.icon?
                 (typeof valueData.icon === 'string'?
-                    <img src={valueData.icon} width={16} height={16} alt={valueData.label}></img>:valueData.icon
-                ):'') 
+                    <img
+                      loading="lazy"
+                      width="16"
+                      height="16"
+                      src={valueData.icon}
+                      alt={valueData.label}
+                    />:
+                    valueData.icon.map((icon,i)=>(
+                      <img
+                      key={i}
+                      loading="lazy"
+                      width="16"
+                      height="16"
+                      src={icon}
+                      alt={valueData.label}
+                      className={i>0?"icon_second":"icon_first"}
+                     />
+                    ))
+                    ):'') 
              ,
             }} 
             />
           }
         />
-        <Typography variant="p" className="texthelper">{texthelper}</Typography>
+        <Typography variant="span" className="texthelper">{texthelper}</Typography>
       </Box>
     </ThemeProvider>
   )

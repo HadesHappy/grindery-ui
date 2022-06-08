@@ -39,7 +39,6 @@ export const theme = createTheme({
         MuiFormControl:{
             styleOverrides:{
                 root:{
-                    height:'60px',
                     marginTop:'4px',
                     "& .Mui-focused": {
                         '& #search-select':{
@@ -55,11 +54,11 @@ export const theme = createTheme({
                         fontSize: '14px',
                         lineHeight: '150%',
                         color: '#898989',
-                        marginBottom: '20px',
                     },
                     '& .boxItems':{
                         position:'absolute',
                         top:'12px',
+                        left: '10px',
                         display:'flex',
                     },
                     "& #search-input": {
@@ -86,7 +85,7 @@ export const theme = createTheme({
 
                     "& .full_img_box img":{
                         border:0,
-                        marginRight:0,
+                        marginRight:-5,
                     },
 
                     "& .img_box_icon": {
@@ -94,6 +93,12 @@ export const theme = createTheme({
                         alignItems: 'center',
                         marginRight: '5px',
                         padding: '5px',
+                        '& .icon_second':{
+                            marginLeft: '-12px',
+                        },
+                        '& .icon_first':{
+                            zIndex: '1',
+                        }
                     },
                     "& .img_box_icon > img": {
                         background: '#fff',
@@ -161,7 +166,18 @@ export const theme = createTheme({
                 root:{
                     height:'34px',
                     margin:'4px 0px',
-                    padding:'5px 15px 5px 15px',     
+                    padding:'5px 15px 5px 15px',   
+                    '&:hover':{
+                        backgroundColor:'#FDFBFF',  
+                    },
+                    '& .icon_second':{
+                        marginLeft:'-17px',
+                        background:'#FFFFFF',
+                    },
+                    '& .icon_first':{
+                        zIndex: '1',
+                        background:'#FFFFFF',
+                    },
                     "& .full_img_box": {
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -182,6 +198,12 @@ export const theme = createTheme({
                         gap: '5px',
                         borderRadius: '5px',
                         background:'#FFFFFF',
+                    },
+                    "& .full_img_box .icon_second": {
+                        marginLeft: '0px',
+                    },
+                    '& .img_box_icon .icon_second':{
+                        marginLeft:'-10px',
                     },
                     '& .onlyImg':{
                         border:0,

@@ -31,7 +31,7 @@ export const theme = createTheme({
                     border: 0,
                 },
                 input:{
-                    padding: '15px 15px 15px 15px!important',
+                    padding: '15px 15px 15px 15px',
                     display: 'flex',
                 },
             }
@@ -43,10 +43,14 @@ export const theme = createTheme({
                     "& .Mui-focused": {
                         '& #search-select':{
                             border: '2px solid #8C30F5',
+                            padding: '10px 15px 10px 15px!important',
                         },
                         '& #search-select-empty':{
                             border: '2px solid #8C30F5',
                         }
+                    },
+                    '& #search-select':{
+                        padding: '10px 15px 10px 15px!important',
                     },
                     '& .texthelper ':{
                         fontStyle: 'normal',
@@ -56,10 +60,9 @@ export const theme = createTheme({
                         color: '#898989',
                     },
                     '& .boxItems':{
-                        position:'absolute',
-                        top:'12px',
-                        left: '10px',
                         display:'flex',
+                        flexWrap:'wrap',
+                        rowGap: '5px',
                     },
                     "& #search-input": {
                         padding: '10px 5px 10px 10px',

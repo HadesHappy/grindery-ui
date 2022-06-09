@@ -16,7 +16,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import {theme} from './Style';
 
 
-function SelectInput({options, type, label, placeholder , variant, texthelper,  required, onChange}) {
+function SelectInput({options, type, label, placeholder , variant, texthelper, value,  required, onChange}) {
 
     const containsText = (text, searchText) =>
     text.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
@@ -28,21 +28,11 @@ function SelectInput({options, type, label, placeholder , variant, texthelper,  
       [searchText]
     );
 
-
-    const [newListValue,setNewListValues] = useState([]);
-  
     const handleChange = (event) => {
 
-      if(!Array.isArray(event.target.value)){
-        setNewListValues([event.target.value]);
-      }else{
-        setNewListValues(event.target.value);
-      }
-      
       onChange(event.target.value)
 
     }
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -53,12 +43,12 @@ function SelectInput({options, type, label, placeholder , variant, texthelper,  
             {required?<Typography variant="p" className="required">{"(required)"}</Typography>:''}
           </Box>      
         <FormControl fullWidth>
-          {newListValue.length===0?<InputLabel disableAnimation shrink={false} focused={false}>{placeholder}</InputLabel>:''}
+          {value.length===0?<InputLabel disableAnimation shrink={false} focused={false}>{placeholder}</InputLabel>:''}
           <Select
             MenuProps={{ autoFocus: false }}
             labelId="search-select-label"
-            id={newListValue.length!==0?"search-select":"search-select-empty"}
-            value={newListValue}
+            id={value.length!==0?"search-select":"search-select-empty"}
+            value={value}
             multiple={false}
             onChange={handleChange}
             onClose={() => setSearchText("")}
@@ -83,7 +73,7 @@ function SelectInput({options, type, label, placeholder , variant, texthelper,  
                 ):''
               ))*/
               <Box component={"div"} className="boxItems">
-              {newListValue.map((option, i) => (
+              {value.map((option, i) => (
                   <Box key={i} component="div" className="img_box_icon"  sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
                     {option.icon?
                       (typeof option.icon === 'string'?
@@ -153,12 +143,12 @@ function SelectInput({options, type, label, placeholder , variant, texthelper,  
           {required?<Typography variant="p" className="required">{"(required)"}</Typography>:''}
         </Box>
         <FormControl fullWidth>
-          {newListValue.length===0?<InputLabel disableAnimation shrink={false} focused={false}>{placeholder}</InputLabel>:''}
+          {value.length===0?<InputLabel disableAnimation shrink={false} focused={false}>{placeholder}</InputLabel>:''}
           <Select
             MenuProps={{ autoFocus: true }}
             labelId="search-select-label"
-            id={newListValue.length!==0?"search-select":"search-select-empty"}
-            value={newListValue}
+            id={value.length!==0?"search-select":"search-select-empty"}
+            value={value}
             multiple={true}
             onChange={handleChange}
             onClose={() => setSearchText("")}
@@ -186,7 +176,7 @@ function SelectInput({options, type, label, placeholder , variant, texthelper,  
                 ):''
               ))*/
               <Box component={"div"} className="boxItems">
-              {newListValue.map((option, i) => (
+              {value.map((option, i) => (
                 <Box key={i} component="div" className={variant==="default"?"img_box_icon":"full_img_box"} sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
                   {option.icon?
                     (typeof option.icon === 'string'?

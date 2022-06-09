@@ -6,34 +6,16 @@ import {theme} from  './Style';
 function AutoCompleteInput({options,label,placeholder,size,required,texthelper, value, onChange}) {
 
 
-  const [isIcon, setIcon] = React.useState(true);
-  const [valueData, setValue] = React.useState('');
-
-
-
   const handleChange = (event, obj) => {
+  
     if(obj===null){
-      onChange(null);
-      setValue('');
+      onChange([]);
     }else{
       onChange(obj);
-      setValue(obj);
     }
   
    
   }
-
-
-  useEffect(() => {
-    if(!valueData){
-      setIcon(true);
-    }else{
-      setIcon(false);
-    }
-
-  },[valueData])
-
-
 
 
   return (
@@ -47,9 +29,10 @@ function AutoCompleteInput({options,label,placeholder,size,required,texthelper, 
             size={size}
             id="g-form-input"
             onChange={handleChange}
+            value={value.length>0?value:null}
             freeSolo 
             options={options}
-            getOptionLabel={option => option.label}
+            getOptionLabel={(option) => option.length===1?option[0].label:option.label}
             loading={true}
             renderOption={(props, option) => (
               <Box component="li" sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }} {...props}>        
@@ -79,27 +62,27 @@ function AutoCompleteInput({options,label,placeholder,size,required,texthelper, 
               </Box>
             )}
             renderInput={(params) =>  <TextField {...params} label="" 
-            placeholder={placeholder} 
+            placeholder={placeholder}
             InputProps={{ ...params.InputProps, 
-            startAdornment: isIcon ?(<InputAdornment position="start"> <Icon>search</Icon>
+            startAdornment: value.length === 0 ?(<InputAdornment position="start"> <Icon>search</Icon>
             </InputAdornment> ): 
-              (valueData.icon?
-                (typeof valueData.icon === 'string'?
+              (value[0].icon?
+                (typeof value[0].icon === 'string'?
                     <img
                       loading="lazy"
                       width="16"
                       height="16"
-                      src={valueData.icon}
-                      alt={valueData.label}
+                      src={value[0].icon}
+                      alt={value[0].label}
                     />:
-                    valueData.icon.map((icon,i)=>(
+                    value[0].icon.map((icon,i)=>(
                       <img
                       key={i}
                       loading="lazy"
                       width="16"
                       height="16"
                       src={icon}
-                      alt={valueData.label}
+                      alt={value[0].label}
                       className={i>0?"icon_second":"icon_first"}
                      />
                     ))

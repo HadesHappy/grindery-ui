@@ -74,7 +74,7 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
               ))*/
               <Box component={"div"} className="boxItems">
               {value.map((option, i) => (
-                  <Box key={i} component="div" className="img_box_icon"  sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
+                  <Box key={option.value} component="div" className="img_box_icon"  sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
                     {option.icon?
                       (typeof option.icon === 'string'?
                       <img
@@ -179,7 +179,7 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
 
               <Box component={"div"} className="boxItems">
               {value.map((option, i) => (
-                <Box key={i} component="div" className={variant==="default"?"img_box_icon":"full_img_box"} sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
+                <Box key={option.value} component="div" className={variant==="default"?"img_box_icon":"full_img_box"} sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
                   {option.icon?
                     (typeof option.icon === 'string'?
                     <img
@@ -234,7 +234,7 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
               />
               </ListSubheader>}
             {displayedOptions.map((option, i) => (
-              <MenuItem key={i} value={option}>
+              <MenuItem key={option.value} value={option}>
                 <Box component="div" className={variant==="full"?"full_img_box":'img_box_icon'}>
                   {option.icon?
                     (typeof option.icon === 'string'?

@@ -16,7 +16,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import {theme} from './Style';
 
 
-function SelectInput({options, type, label, placeholder , variant, texthelper, value,  required, onChange}) {
+function SelectInput({options, type, label, placeholder , variant, texthelper, value, multiple,  required, onChange}) {
 
     const containsText = (text, searchText) =>
     text.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
@@ -49,7 +49,7 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
             labelId="search-select-label"
             id={value.length!==0?"search-select":"search-select-empty"}
             value={value}
-            multiple={false}
+            multiple={multiple}
             onChange={handleChange}
             onClose={() => setSearchText("")}
             renderValue={() =>
@@ -105,7 +105,7 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
           >
 
             {displayedOptions.map((option, i) => (
-              <MenuItem key={i} value={option}>
+              <MenuItem key={option.value} value={option}>
                 <Box component="div" sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
                   {option.icon?
                     (typeof option.icon === 'string'?
@@ -149,11 +149,11 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
             labelId="search-select-label"
             id={value.length!==0?"search-select":"search-select-empty"}
             value={value}
-            multiple={true}
+            multiple={multiple}
             onChange={handleChange}
             onClose={() => setSearchText("")}
             renderValue={() => 
-            
+
 
               /* *
               options.map((option, i) => (
@@ -175,6 +175,8 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
                 </Box>
                 ):''
               ))*/
+
+
               <Box component={"div"} className="boxItems">
               {value.map((option, i) => (
                 <Box key={i} component="div" className={variant==="default"?"img_box_icon":"full_img_box"} sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
@@ -255,8 +257,8 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
                      />
                     ))
                     ):''}
-                  <h5>{option.label}</h5>
-                  <span>{option.reference}</span>
+                  {variant==="full"?<h5>{option.label}</h5>:option.label}
+                  {variant==="full"?<span>{option.reference}</span>:''}
                 </Box>
               </MenuItem>
             ))}
@@ -280,6 +282,7 @@ SelectInput.propTypes = {
   type: PropTypes.string,
   onChange: PropTypes.func,
   variant: PropTypes.string,
+  multiple: PropTypes.bool,
 
 }
 
@@ -290,6 +293,7 @@ SelectInput.defaultProps = {
   placeholder: '0x',
   type: 'default',
   variant:'default',
+  multiple: false,
   onChange: () => undefined
 
 }

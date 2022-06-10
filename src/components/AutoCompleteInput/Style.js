@@ -49,6 +49,42 @@ export const theme = createTheme({
                 }
             }
         },
+        MuiFilledInput:{
+            styleOverrides:{
+                root:{
+                    borderRadius: 4,
+                    border: '1px solid #DCDCDC',
+                    paddingTop:'0px!important',
+                    background: '#F4F5F7!important',
+                    '& li':{
+                        listStyle: 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        backgroundColor:'#FFFFFF',
+                        padding: '4px',
+                        '& > img':{ 
+                            border: 0,
+                        },
+                        borderRadius:'4px',
+                        border:'1px solid #DCDCDC',
+                        marginRight:'5px'
+                    },
+                    '&:hover:not(.Mui-disabled):before':{
+                        border:0,
+                    },
+                    '&:hover':{
+                        background: '#F4F5F7!important'
+                    },
+                    '&:after':{
+                        border:0,
+                    },
+
+                    '&:before':{
+                        border:0,
+                    }
+                }
+            }
+        },
         MuiAutocomplete:{
             styleOverrides:{
                 root:{

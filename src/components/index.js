@@ -4,3 +4,8 @@ export { default as SelectInput} from './SelectInput';
 export { default as ButtonElement} from './ButtonElement';
 export { default as InputBox} from './InputBox';
 export { default as AutoCompleteInput} from './AutoCompleteInput';
+export { default as SwitchInput} from './SwitchInput';
+export { default as DialogBox} from './DialogBox';
+export { default as InputSuffix} from './InputSuffix';
+export { default as SelectSimple} from './SelectSimple';
+export { default as AlertField} from './AlertField';

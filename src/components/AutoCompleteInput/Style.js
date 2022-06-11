@@ -39,7 +39,7 @@ export const theme = createTheme({
                     },
                     '& .icon_first':{
                         zIndex:'1',
-                    }
+                    },
                 },
                 notchedOutline:{
                     border: 0,
@@ -56,18 +56,31 @@ export const theme = createTheme({
                     border: '1px solid #DCDCDC',
                     paddingTop:'0px!important',
                     background: '#F4F5F7!important',
+                    '& img':{
+                        marginRight:'0px',
+                    },
                     '& li':{
                         listStyle: 'none',
                         display: 'flex',
                         alignItems: 'center',
                         backgroundColor:'#FFFFFF',
                         padding: '4px',
+                        borderRadius:'4px',
+                        border:'1px solid #DCDCDC',
+                        marginRight:'5px',
+                        marginTop:'10px',
+                        marginBottom:'10px',
                         '& > img':{ 
                             border: 0,
                         },
-                        borderRadius:'4px',
-                        border:'1px solid #DCDCDC',
-                        marginRight:'5px'
+                    },
+                    '& .icon_second':{
+                        marginLeft:'-4px',
+                        backgroundColor:'#FFFFFF',
+                    },
+                    '& .icon_first':{
+                        marginRight:'0px',
+                        backgroundColor:'#FFFFFF',
                     },
                     '&:hover:not(.Mui-disabled):before':{
                         border:0,
@@ -88,7 +101,6 @@ export const theme = createTheme({
         MuiAutocomplete:{
             styleOverrides:{
                 root:{
-                    height:'60px',
                     '& .MuiInputBase-sizeSmall':{	
                         width:'240px',
                     },
@@ -100,7 +112,7 @@ export const theme = createTheme({
                         backgroundColor:'#FDFBFF', 
                     },
                     '& .icon_second':{
-                        marginLeft:'-12px',
+                        marginLeft:'-5px',
                         backgroundColor:'#FFFFFF',
                     },
                     '& .icon_first':{
@@ -109,6 +121,39 @@ export const theme = createTheme({
                     },
                     '& img':{
                         backgroundColor:'#FFFFFF',
+                    },
+                    '& h5':{
+                        fontStyle: 'normal',
+                        fontWeight: '700',
+                        fontSize: '16px',
+                        lineHeight: '150%',
+                        color: '#141416',
+                        margin:'0px'
+                    },
+                    '& span':{
+                        fontStyle: 'normal',
+                        fontWeight: '400',
+                        fontSize: '16px',
+                        lineHeight: '150%',
+                        color: '#898989',
+                        margin:'0px'
+                    },
+                    "& .full_img_box": {
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        border: '1px solid #DCDCDC',
+                        padding: '4px',
+                        borderRadius: '5px',
+                        background: '#fff',
+                        fontFamily: 'Roboto',
+                        fontStyle: 'normal',
+                        fontWeight: '400',
+                        fontSize: '16px',
+                        lineHeight: '150%',
+                        textOverflow:'ellipsis',
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
                     }
                 },
                 input:{

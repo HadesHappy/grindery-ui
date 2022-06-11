@@ -5,13 +5,18 @@ import PropTypes from 'prop-types'
 import {theme} from  './Style';
 import SearchIcon from "@mui/icons-material/Search";
 
-function AutoCompleteInput({options,label,placeholder, type, size,required,texthelper, value, onChange}) {
+function AutoCompleteInput({options,label,placeholder, type, size,required,texthelper, variant, value, onChange}) {
+
+
+  const [open, setOpen] = useState(false);
 
 
   const containsText = (text, searchText) =>
   text.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
 
   const [searchText, setSearchText] = useState("");
+
+  const [inputValue, setInputValue] = useState("");
 
   const displayedOptions = useMemo(
     () => options.filter((option) => containsText(option.label, searchText)),
@@ -34,14 +39,26 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
    
   }
 
+  function haddleOpen(event){
+    setOpen(true)
+  }
+
+  function haddleClose(event, reason){
+    setOpen(false)
+      if(reason==="blur"){
+        setInputValue("")
+      }
+  }
+
   const CustomPaper = (props) => {
     return <Paper {...props}>
-      <ListSubheader onClick={(e) => e.stopPropagation()}>
+      <ListSubheader>
         <TextField
           size="small"
           autoFocus
           placeholder="Search..."
           fullWidth
+          value={searchText}
           id="search-input"
           InputProps={{
             startAdornment: (
@@ -55,9 +72,6 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
             if (e.key !== "Escape") {
               e.stopPropagation();
             }
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
           }}
         />
       </ListSubheader>
@@ -154,13 +168,19 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
       <Autocomplete
         multiple
         id="tags-filled"
-        options={displayedOptions}
+        options={options}
         onChange={handleChange}
-        PaperComponent={CustomPaper}
+        onOpen={haddleOpen}
+        onClose={haddleClose}
+        open={open}
+          /*
+        PaperComponent={CustomPaper}*/
+        disableClearable={true}
+        clearOnBlur={true}
         freeSolo
         value={value}
         getOptionLabel={(option)=> option.label?option.label:""}
-        renderTags={(value, getTagProps) =>
+        renderTags={(value) =>
           value.map((option, index) => (
             <Box component="li" key={option.value} sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>        
             {option.icon?
@@ -190,41 +210,42 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
           ))
         }
         renderOption={(props, option) => (
-          <>
-
-          <Box component="li" key={option.value} sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }} {...props}>        
-            {option.icon?
-                  (typeof option.icon === 'string'?
-                  <img
-                    loading="lazy"
-                    width="16"
-                    height="16"
-                    src={option.icon}
-                    alt={option.label}
-                  />:
-                    option.icon.map((icon,i)=>(
+          <Box component="div"  key={option.value} {...props}>
+            <Box component="div" className='full_img_box'>        
+              {option.icon?
+                    (typeof option.icon === 'string'?
                     <img
-                    key={icon}
-                    loading="lazy"
-                    width="16"
-                    height="16"
-                    src={icon}
-                    alt={option.label}
-                    className={i>0?"icon_second":"icon_first"}
-                   />
-                  ))
-                  )
-            :''}
-            {option.label}
-            {option.reference}
+                      loading="lazy"
+                      width="16"
+                      height="16"
+                      src={option.icon}
+                      alt={option.label}
+                    />:
+                      option.icon.map((icon,i)=>(
+                      <img
+                      key={icon}
+                      loading="lazy"
+                      width="16"
+                      height="16"
+                      src={icon}
+                      alt={option.label}
+                      className={i>0?"icon_second":"icon_first"}
+                    />
+                    ))
+                    )
+              :''}
+              {variant==="full"?<h5>{option.label}</h5>:option.label}
+              {variant==="full"?<span>{option.reference}</span>:''}
+            </Box>
           </Box>
-          </>
         )}
         renderInput={(params) => (
           <TextField
             {...params}
             variant="filled"
             placeholder={value.length===0?placeholder:''}
+            value={inputValue}
+            onchange={(e) => console.log(e.target.value)}
           />
         )}
       />

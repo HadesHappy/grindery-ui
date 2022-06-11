@@ -1,12 +1,17 @@
-import  {Text , PaperBox , AlertField, InputSuffix, SelectSimple,  SelectInput , ButtonElement , InputBox , AutoCompleteInput , SwitchInput , DialogBox}  from './components';
+import  {Text , PaperBox , AlertField, InputSuffix, IconButtonComponent,  SelectSimple, TabComponent , SelectInput , ButtonElement , InputBox , AutoCompleteInput , SwitchInput , DialogBox}  from './components';
 import React from 'react';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import PhoneIcon from '@mui/icons-material/Phone';
 
 
 function App() {
 
   const options = [{'value':'1' ,'label':'Google Sheets' ,'icon':'./assets/img/google.png', 'reference':'0x912819482039850298545094530495094'}, {'value':'2' , 'label':'MolochDao' , 'icon':['./assets/img/google.png','./assets/img/molochdao.png'] }, {'value':'3' , 'label':'Google' , 'icon':'./assets/img/google.png' }];
 
+  const options_tabs = ['All','Success','Error']
+
+
+  const options_tabs_icon = [<PhoneIcon/>,<PhoneIcon/>,<PhoneIcon/>]
 
   const moneyOptions = [{label:'USD', value:'1'},{label:'EUR', value:'2'}]
 
@@ -17,6 +22,8 @@ function App() {
 
   const [valueInput,setValueInput] = React.useState('')
 
+  const [valueTab,setValueTab] = React.useState(0)
+
   const [valueMoney,setValueMoney] = React.useState('');
 
   function handleChange(values) {
@@ -24,6 +31,7 @@ function App() {
     if(!Array.isArray(values)){
       setValue([values]);
     }else{
+      console.log(values)
       setValue(values);
     }
 
@@ -53,9 +61,20 @@ function App() {
 
   }
 
+  function handleChangeTabs(value){
+    setValueTab(value)
+  }
+
   return (
     <div className="App">
       <PaperBox>
+
+     <IconButtonComponent icon={"search"} type="text" color='secondary' onClick={() => console.log('Hey')} />
+
+      <TabComponent value={valueTab} type={"text"}  activeIndicatorColor={"#8C30F5"} tabColor={"#0B0D17"} activeColor={"#8C30F5"} options={options_tabs} onChange={handleChangeTabs} />
+
+      <TabComponent value={valueTab} type={"icon"} orientation={"vertical"} activeIndicatorColor={"#8C30F5"} tabColor={"#0B0D17"} activeColor={"#8C30F5"} options={options_tabs_icon} onChange={handleChangeTabs} />
+
 
       <AlertField text={"No contacts created yet."} color={"error"} icon={<CheckCircleOutlineIcon fontSize="inherit" />} />
 
@@ -78,7 +97,7 @@ function App() {
        <SelectInput options={options} type={"searchLabel"} multiple={true} value={value} variant={"full"} texthelper="You must have column headers"  onChange={handleChange} label={'Connect with...'} placeholder={"0x"}></SelectInput>
     
       */}
-        <AutoCompleteInput options={options} type={"searchLabel"} label={'Connect with...'}  value={value}  texthelper="You must have column headers" placeholder={"Search for an App"} onChange={handleChange} required={true}></AutoCompleteInput>
+        <AutoCompleteInput options={options} variant={"full"} type={"searchLabel"} label={'Connect with...'}  value={value}  texthelper="You must have column headers" placeholder={"Search for an App"} onChange={handleChange} required={true}></AutoCompleteInput>
       
          
        

@@ -2,10 +2,10 @@ import { createTheme } from '@mui/material/styles';
 
 const severity = {	
 
-    primary: {
+    info: {
         main: '#F1E4FF',
     },
-    secondary: {
+    error: {
         main: '#FFE7E7',
     },
     warning:{

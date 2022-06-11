@@ -1,11 +1,22 @@
-import React from 'react'
-import {Autocomplete , Icon , TextField , InputAdornment , Typography , Box} from '@mui/material';
+import React, {useState , useMemo} from 'react'
+import {Autocomplete , Icon , TextField , InputAdornment , Typography , ListSubheader, Paper, Box} from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import PropTypes from 'prop-types'
 import {theme} from  './Style';
+import SearchIcon from "@mui/icons-material/Search";
 
 function AutoCompleteInput({options,label,placeholder, type, size,required,texthelper, value, onChange}) {
 
+
+  const containsText = (text, searchText) =>
+  text.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+
+  const [searchText, setSearchText] = useState("");
+
+  const displayedOptions = useMemo(
+    () => options.filter((option) => containsText(option.label, searchText)),
+    [searchText]
+  );
 
   const handleChange = (event, obj) => {
 
@@ -21,6 +32,37 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
       }
     }
    
+  }
+
+  const CustomPaper = (props) => {
+    return <Paper {...props}>
+      <ListSubheader onClick={(e) => e.stopPropagation()}>
+        <TextField
+          size="small"
+          autoFocus
+          placeholder="Search..."
+          fullWidth
+          id="search-input"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            )
+          }}
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key !== "Escape") {
+              e.stopPropagation();
+            }
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        />
+      </ListSubheader>
+      {props.children}
+    </Paper>
   }
 
 
@@ -112,14 +154,15 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
       <Autocomplete
         multiple
         id="tags-filled"
-        options={options}
+        options={displayedOptions}
         onChange={handleChange}
+        PaperComponent={CustomPaper}
         freeSolo
         value={value}
         getOptionLabel={(option)=> option.label?option.label:""}
         renderTags={(value, getTagProps) =>
           value.map((option, index) => (
-            <Box component="li" key={index} sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>        
+            <Box component="li" key={option.value} sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>        
             {option.icon?
                   (typeof option.icon === 'string'?
                   <img
@@ -148,7 +191,8 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
         }
         renderOption={(props, option) => (
           <>
-          <Box component="li" sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }} {...props}>        
+
+          <Box component="li" key={option.value} sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }} {...props}>        
             {option.icon?
                   (typeof option.icon === 'string'?
                   <img
@@ -160,7 +204,7 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
                   />:
                     option.icon.map((icon,i)=>(
                     <img
-                    key={i}
+                    key={icon}
                     loading="lazy"
                     width="16"
                     height="16"
@@ -172,6 +216,7 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
                   )
             :''}
             {option.label}
+            {option.reference}
           </Box>
           </>
         )}

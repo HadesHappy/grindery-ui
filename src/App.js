@@ -57,7 +57,7 @@ function App() {
     <div className="App">
       <PaperBox>
 
-      <AlertField text={"No contacts created yet."} color={"secondary"} icon={<CheckCircleOutlineIcon fontSize="inherit" />} />
+      <AlertField text={"No contacts created yet."} color={"error"} icon={<CheckCircleOutlineIcon fontSize="inherit" />} />
 
       <SelectSimple options={moneyOptions} value={valueMoney} onChange={handleChangeMoney} placeholder={"Money"}  />
       
@@ -74,14 +74,14 @@ function App() {
         <Text value={"Connect"} variant="h2" />
         <Text value={"Connect"} variant="h3" />  
         <InputBox label='Connect with...' texthelper="You must have column headers" required={true}></InputBox>
-        <AutoCompleteInput options={options} label={'Connect with...'}  value={value}  texthelper="You must have column headers" placeholder={"Search for an App"} onChange={handleChange} required={true}></AutoCompleteInput>
-      
-
-        <AutoCompleteInput options={options} type={"no-default"} label={'Connect with...'}  value={value}  texthelper="You must have column headers" placeholder={"Search for an App"} onChange={handleChange} required={true}></AutoCompleteInput>
+        {/*<AutoCompleteInput options={options} label={'Connect with...'}  value={value}  texthelper="You must have column headers" placeholder={"Search for an App"} onChange={handleChange} required={true}></AutoCompleteInput>
+       <SelectInput options={options} type={"searchLabel"} multiple={true} value={value} variant={"full"} texthelper="You must have column headers"  onChange={handleChange} label={'Connect with...'} placeholder={"0x"}></SelectInput>
+    
+      */}
+        <AutoCompleteInput options={options} type={"searchLabel"} label={'Connect with...'}  value={value}  texthelper="You must have column headers" placeholder={"Search for an App"} onChange={handleChange} required={true}></AutoCompleteInput>
       
          
-        <SelectInput options={options} type={"searchLabel"} multiple={true} value={value} variant={"full"} texthelper="You must have column headers"  onChange={handleChange} label={'Connect with...'} placeholder={"0x"}></SelectInput>
-    
+       
       {/*
         
         <SelectInput options={options} type={"default"} value={value} label={'Connect with...'} required={true} texthelper="You must have column headers" onChange={handleChange} placeholder={"Choose sheet..."} ></SelectInput>

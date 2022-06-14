@@ -94,6 +94,7 @@ function App() {
 
 
         <SwitchInput value={switchValue} color="#000" on="On" off="Off" onChange={handleChangeSwitch} />
+        <SwitchInput value={switchValue} color="#000" onChange={handleChangeSwitch} />
         <Text value={"Connect"} variant="h2" />
         <Text value={"Connect"} variant="h3" />  
         <AutoCompleteInput options={options} label={'Connect with...'}  value={value}  texthelper="You must have column headers" placeholder={"Search for an App"} onChange={handleChange} required={true}></AutoCompleteInput>

@@ -72,8 +72,6 @@ SwitchInput.defaultProps = {
 
     value: false,
     color: 'primary',
-    on: 'On',
-    off: 'Off',
     onChange: undefined
 }
 

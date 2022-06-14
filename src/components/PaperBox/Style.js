@@ -8,7 +8,6 @@ export const theme = createTheme({
                     padding: '80px 106px',
                     borderRadius:10,
                     border: '1px solid 1px solid #DCDCDC',
-                    width: '300px',
                 }
             }
         }

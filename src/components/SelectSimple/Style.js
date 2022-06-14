@@ -9,13 +9,17 @@ export const theme = createTheme({
                         border:'0px',   
                     },
                     '& > div':{
-                        padding:'5px 10px!important',
+                        paddingTop:"5px",
+                        paddingBottom:"5px",
                         fontFamily: 'Roboto',
                         fontStyle: 'normal',
                         fontWeight: '400',
                         fontSize: '16px',
                         lineHeight: '150%',
                         color: '#0B0D17',
+                    },
+                    '& > .MuiSvgIcon-root':{
+                        fill: '#898989'
                     }
                 }
             }
@@ -28,9 +32,6 @@ export const theme = createTheme({
                         left: '-5px',
                         top: '-10px',
                     },
-                    '& > .select-simple-value':{
-                       background: '#F4F5F7'
-                    }
                 }
             }
         },

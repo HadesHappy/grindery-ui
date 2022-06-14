@@ -41,6 +41,7 @@ export const theme = createTheme({
                 root:{
                     marginTop:'4px',
                     "& .Mui-focused": {
+                        border: '0px',
                         '& #search-select':{
                             border: '2px solid #8C30F5',
                             padding: '10px 15px 10px 15px!important',
@@ -84,6 +85,9 @@ export const theme = createTheme({
                         fontSize: '16px',
                         lineHeight: '150%',
                         marginRight: '10px',
+                        textOverflow:'ellipsis',
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
                     },
 
                     "& .full_img_box img":{
@@ -164,6 +168,23 @@ export const theme = createTheme({
                 }
             }
         },
+        MuiTooltip:{
+            styleOverrides:{
+                tooltip:{
+                    background:'#000',
+                    width:'160px',
+                    padding:'10px',
+                    fontFamily: 'Roboto',
+                    fontStyle: 'normal',
+                    fontWeight: '400',
+                    fontSize: '12px',
+                    lineHeight: '150%',
+                },
+                arrow:{
+                    color:'#000',
+                }
+            }
+        },
         MuiMenuItem:{
             styleOverrides:{
                 root:{
@@ -194,6 +215,9 @@ export const theme = createTheme({
                         fontWeight: '400',
                         fontSize: '16px',
                         lineHeight: '150%',
+                        textOverflow:'ellipsis',
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
                     },
                     '& .img_box_icon img':{
                         border:'1px solid #DCDCDC',

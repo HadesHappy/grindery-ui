@@ -57,7 +57,7 @@ TabComponent.propTypes = {
     value: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     options: PropTypes.array.isRequired,
-    orientation: PropTypes.string.isRequired,
+    orientation: PropTypes.string,
     activeIndicatorColor: PropTypes.string.isRequired,
     tabColor: PropTypes.string.isRequired,
     activeColor: PropTypes.string.isRequired,

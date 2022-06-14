@@ -1,11 +1,11 @@
 import React, {useState , useMemo} from 'react'
-import {Autocomplete , Icon , TextField , InputAdornment , Typography , ListSubheader, Paper, Box} from '@mui/material';
+import {Autocomplete , Icon , TextField , InputAdornment , Typography , ListSubheader, Paper, Box , Tooltip , Button} from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import PropTypes from 'prop-types'
 import {theme} from  './Style';
 import SearchIcon from "@mui/icons-material/Search";
 
-function AutoCompleteInput({options,label,placeholder, type, size,required,texthelper, variant, value, onChange}) {
+function AutoCompleteInput({options,label,placeholder, type, size,required,texthelper, variant, value, tooltip, onChange}) {
 
 
   const [open, setOpen] = useState(false);
@@ -85,14 +85,18 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
       {type==="default"?(<Box component={"div"} sx={{marginBottom:'20px'}}>
         <Box component={"div"} sx={{display:'flex' , '& > .required ':{marginLeft:'auto' , fontSize: '14px' , color: '#898989'}} }>
             <Typography variant="p">{label}</Typography>
+            {tooltip?<Tooltip title={tooltip}  placement="top" arrow>
+              <Icon sx={{color:'#898989',fontSize:'18px','.':{backgroundColor:'#000'}}}>error</Icon>
+            </Tooltip>:''}
             {required?<Typography variant="p" className="required">{"(required)"}</Typography>:''}
         </Box>
         <Autocomplete
             size={size}
             id="g-form-input"
             onChange={handleChange}
-            value={value.length>0?value:null}
+            value={value.length>0?value:{'value':'' ,'label':''}}
             freeSolo
+            sx={value.length>0?{'.MuiOutlinedInput-root':{'border':'2px solid #8C30F5'}}:{'.MuiAutocomplete-clearIndicator':{'display':'none'}}}
             options={options}
             getOptionLabel={(option) => option.length===1?option[0].label:option.label}
             loading={true}
@@ -163,6 +167,9 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
         <Box component={"div"} sx={{marginBottom:'20px'}}>
         <Box component={"div"} sx={{display:'flex' , '& > .required ':{marginLeft:'auto' , fontSize: '14px' , color: '#898989'}} }>
             <Typography variant="p">{label}</Typography>
+            {tooltip?<Tooltip title={tooltip}  placement="top" arrow>
+              <Icon sx={{color:'#898989',fontSize:'18px','.':{backgroundColor:'#000'}}}>error</Icon>
+            </Tooltip>:''}
             {required?<Typography variant="p" className="required">{"(required)"}</Typography>:''}
         </Box> 
       <Autocomplete
@@ -179,6 +186,7 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
         clearOnBlur={true}
         freeSolo
         value={value}
+        sx={value.length>0?{'.MuiFilledInput-root':{'border':'2px solid #8C30F5'}}:''}
         getOptionLabel={(option)=> option.label?option.label:""}
         renderTags={(value) =>
           value.map((option, index) => (
@@ -245,7 +253,7 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
             variant="filled"
             placeholder={value.length===0?placeholder:''}
             value={inputValue}
-            onchange={(e) => console.log(e.target.value)}
+            onChange={(e) => console.log(e.target.value)}
           />
         )}
       />

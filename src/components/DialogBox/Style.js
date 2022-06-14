@@ -2,6 +2,13 @@ import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
     components: {
+        MuiModal:{
+            styleOverrides:{
+                root:{
+                    margin: '0 auto',
+                }
+            }
+        },
         MuiBackdrop:{
             styleOverrides:{
                 root: {
@@ -15,7 +22,6 @@ export const theme = createTheme({
                 container:{
                     '& > div':{
                         width:'100%',
-                        maxWidth:'100%',
                         margin:'30px',
                         padding:'20px',
                         borderRadius:10,

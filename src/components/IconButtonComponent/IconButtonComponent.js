@@ -7,9 +7,9 @@ import PropTypes from 'prop-types'
 function IconButtonComponent({color,type,icon,onClick}) {
   return (
     <ThemeProvider theme={theme}>
-        <IconButton color={color} onClick={onClick} aria-label="delete">
+        <IconButton onClick={onClick} aria-label="delete">
           {type==="text"?
-          <Icon>{icon}</Icon>:
+          <Icon sx={{color:color}}>{icon}</Icon>:
           <img
             loading="lazy"
             width="24"
@@ -26,7 +26,6 @@ function IconButtonComponent({color,type,icon,onClick}) {
 
 IconButtonComponent.propTypes = {
     color: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
 }
 

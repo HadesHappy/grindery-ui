@@ -1,4 +1,4 @@
-import  {Text , PaperBox , AlertField, InputSuffix, IconButtonComponent,  SelectSimple, TabComponent , SelectInput , ButtonElement , InputBox , AutoCompleteInput , SwitchInput , DialogBox}  from './components';
+import  {Text , PaperBox , AlertField, InputSuffix, IconButtonComponent, DrawerComponent, SelectSimple, TabComponent , SelectInput , ButtonElement , InputBox , AutoCompleteInput , SwitchInput , DialogBox}  from './components';
 import React from 'react';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -18,6 +18,8 @@ function App() {
   const [value, setValue] = React.useState([]);
 
   const [switchValue, setSwitchValue] = React.useState(false);
+
+  const [textValue,setTextValue] = React.useState('');
 
 
   const [valueInput,setValueInput] = React.useState('')
@@ -65,11 +67,13 @@ function App() {
     setValueTab(value)
   }
 
+
+
   return (
     <div className="App">
       <PaperBox>
 
-     <IconButtonComponent icon={"search"} type="text" color='secondary' onClick={() => console.log('Hey')} />
+     <IconButtonComponent icon={"search"} type="text" color='#000' onClick={() => console.log('Hey')} />
 
       <TabComponent value={valueTab} type={"text"}  activeIndicatorColor={"#8C30F5"} tabColor={"#0B0D17"} activeColor={"#8C30F5"} options={options_tabs} onChange={handleChangeTabs} />
 
@@ -82,20 +86,23 @@ function App() {
       
       <InputSuffix value={valueInput} onChange={onChangeText} placeholder={"ETH"} suffix={"ETH"} />
 
-      <DialogBox open={switchValue} onClose={handleClose}>
+      <DialogBox open={switchValue} maxWidth={"700px"} onClose={handleClose}>
 
         <h1>Hello</h1>
 
       </DialogBox>
 
 
-        <SwitchInput value={switchValue} color="primary" on="On" off="Off" onChange={handleChangeSwitch} />
+        <SwitchInput value={switchValue} color="#000" on="On" off="Off" onChange={handleChangeSwitch} />
         <Text value={"Connect"} variant="h2" />
         <Text value={"Connect"} variant="h3" />  
-        <InputBox label='Connect with...' texthelper="You must have column headers" required={true}></InputBox>
+        <AutoCompleteInput options={options} label={'Connect with...'}  value={value}  texthelper="You must have column headers" placeholder={"Search for an App"} onChange={handleChange} required={true}></AutoCompleteInput>
+        <InputBox icon={"search"} type={"input-icon"} value={textValue} onChange={((e) => setTextValue(e.target.value))} label='Connect with...' texthelper="You must have column headers" required={true}></InputBox>
+        <SelectInput options={options} type={"searchLabel"} multiple={true} value={value} texthelper="You must have column headers"  onChange={handleChange} label={'Connect with...'} placeholder={"0x"}></SelectInput>
+        <SelectInput options={options} type={"default"} value={value} label={'Connect with...'} required={true} texthelper="You must have column headers" onChange={handleChange} placeholder={"Choose sheet..."} ></SelectInput>
+        
         {/*<AutoCompleteInput options={options} label={'Connect with...'}  value={value}  texthelper="You must have column headers" placeholder={"Search for an App"} onChange={handleChange} required={true}></AutoCompleteInput>
-       <SelectInput options={options} type={"searchLabel"} multiple={true} value={value} variant={"full"} texthelper="You must have column headers"  onChange={handleChange} label={'Connect with...'} placeholder={"0x"}></SelectInput>
-    
+     
       */}
         <AutoCompleteInput options={options} variant={"full"} type={"searchLabel"} label={'Connect with...'}  value={value}  texthelper="You must have column headers" placeholder={"Search for an App"} onChange={handleChange} required={true}></AutoCompleteInput>
       

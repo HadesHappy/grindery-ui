@@ -1,4 +1,3 @@
-import { optionGroupUnstyledClasses } from '@mui/base';
 import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
@@ -37,40 +36,18 @@ export const theme = createTheme({
                     borderRadius: '16px',
                     border: '1px solid #758796',
                     backgroundColor: '#fff!important',
-                      "&:after": {
-                        content: "'On'",
-                        left: "6px",
-                        position: "absolute",
-                        fontFamily: 'Roboto',
-                        fontStyle: 'normal',
-                        fontWeight: '400',
-                        fontSize: '12px',
-                        top: "4px",
-                        lineHeight: '150%',
-                        textAlign: 'right',
-                        color: '#0B0D17'
-                      },
-                      "&:before": {
-                        content: "'Off'",
-                        right: "6px",
-                        top: "4px",
-                        position: "absolute",
-                        fontFamily: 'Roboto',
-                        fontStyle: 'normal',
-                        fontWeight: '400',
-                        fontSize: '12px',
-                        lineHeight: '150%',
-                        textAlign: 'right',
-                        color: '#0B0D17'
-                      }
                 },
                 thumb:{
                     width: '18px',
                     height: '18px',
-                    background: '#758796'
+                    background: '#758796',
+                    boxShadow:'none',
                 },
                 switchBase:{
                     padding: '3px',
+                    '&:hover':{
+                        background:'none',
+                    }
                     
                 }
             }

@@ -2,6 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
 
+
     typography:{
         p:{
             fontSize:14,
@@ -22,6 +23,19 @@ export const theme = createTheme({
         }
     },
     components:{	
+        MuiFormControl:{
+            styleOverrides:{
+                root:{
+                    '&& .input-icon':{
+                        backgroundColor:'#000'
+                    },
+                    '.input-filled':{
+                        backgroundColor:'#000'
+                    }
+                }
+            }
+        },
+
         MuiOutlinedInput:{
             styleOverrides:{
                 root:{
@@ -49,7 +63,28 @@ export const theme = createTheme({
                     },
                     '& fieldset':{
                         border: 'none',
+                    },
+
+                    '.input-filled':{
+                        border:'1px solid #8C30F5',
                     }
+                }
+            }
+        },
+        MuiTooltip:{
+            styleOverrides:{
+                tooltip:{
+                    background:'#000',
+                    width:'160px',
+                    padding:'10px',
+                    fontFamily: 'Roboto',
+                    fontStyle: 'normal',
+                    fontWeight: '400',
+                    fontSize: '12px',
+                    lineHeight: '150%',
+                },
+                arrow:{
+                    color:'#000',
                 }
             }
         },
@@ -70,8 +105,14 @@ export const theme = createTheme({
                         fontSize: '14px',
                         lineHeight: '150%',
                         color: '#898989',
-                        marginBottom: '20px',
                     },
+                }
+            }
+        },
+        MuiInputAdornment:{
+            styleOverrides:{
+                root:{
+                    marginRight:'0px',
                 }
             }
         }

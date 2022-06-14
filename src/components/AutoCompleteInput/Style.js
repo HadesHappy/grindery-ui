@@ -104,6 +104,9 @@ export const theme = createTheme({
                     '& .MuiInputBase-sizeSmall':{	
                         width:'240px',
                     },
+                    '& > div > .Mui-focused': {
+                        border:'2px solid #8C30F5'
+                    }
                 },
                 option:{
                     fontSize: '16px',
@@ -172,10 +175,22 @@ export const theme = createTheme({
                          }
                     }
                 },
-                hasClearIcon:{
-                    '& > div > div': {
-                        border:'2px solid #8C30F5'
-                    }
+            }
+        },
+        MuiTooltip:{
+            styleOverrides:{
+                tooltip:{
+                    background:'#000',
+                    width:'160px',
+                    padding:'10px',
+                    fontFamily: 'Roboto',
+                    fontStyle: 'normal',
+                    fontWeight: '400',
+                    fontSize: '12px',
+                    lineHeight: '150%',
+                },
+                arrow:{
+                    color:'#000',
                 }
             }
         },
@@ -205,6 +220,13 @@ export const theme = createTheme({
                 }
             }
         },
+        Mui:{
+            focused:{
+                '& .MuiFilledInput-root':{
+                    border:'2px solid #8C30F5'
+                }
+            }
+        }
     }
 
 })

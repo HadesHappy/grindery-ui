@@ -10,13 +10,15 @@ import {
   InputAdornment,
   ThemeProvider,
   InputLabel,
+  Tooltip,
+  Icon,
   Box,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import {theme} from './Style';
 
 
-function SelectInput({options, type, label, placeholder , variant, texthelper, value, multiple,  required, onChange}) {
+function SelectInput({options, type, label, placeholder , variant, texthelper, value, multiple,  required, tooltip, onChange}) {
 
     const containsText = (text, searchText) =>
     text.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
@@ -40,6 +42,9 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
         <Box component={"div"} sx={{marginBottom:'20px'}}>
           <Box component={"div"} sx={{display:'flex' , '& > .required ':{marginLeft:'auto' , fontSize: '14px' , color: '#898989'}} }>
             <Typography variant="p">{label}</Typography>
+            {tooltip?<Tooltip title={tooltip}  placement="top" arrow>
+              <Icon sx={{color:'#898989',fontSize:'18px','.':{backgroundColor:'#000'}}}>error</Icon>
+            </Tooltip>:''}
             {required?<Typography variant="p" className="required">{"(required)"}</Typography>:''}
           </Box>      
         <FormControl fullWidth>
@@ -48,30 +53,12 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
             MenuProps={{ autoFocus: false }}
             labelId="search-select-label"
             id={value.length!==0?"search-select":"search-select-empty"}
+            sx={value.length!==0?{border:'0px'}:''}
             value={value}
             multiple={multiple}
             onChange={handleChange}
             onClose={() => setSearchText("")}
             renderValue={() =>
-              /*options.map((option, i) => (
-                option.value===newValue?(
-                  <Box key={i} component="div" className="img_box_icon"  sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
-                    {option.icon?
-                      (typeof option.icon === 'string'?
-                      <img
-                        loading="lazy"
-                        width="16"
-                        height="16"
-                        src={option.icon}
-                        alt={option.label}
-                      />:
-                        option.icon
-                      )
-                    :''}
-                    {option.label}
-                </Box>
-                ):''
-              ))*/
               <Box component={"div"} className="boxItems">
               {value.map((option, i) => (
                   <Box key={option.value} component="div" className="img_box_icon"  sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
@@ -140,6 +127,9 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
         <Box  component={"div"} sx={{marginBottom:'20px'}}>
         <Box component={"div"} sx={{display:'flex' , '& > .required ':{marginLeft:'auto' , fontSize: '14px' , color: '#898989'}} }>
           <Typography variant="p">{label}</Typography>
+          {tooltip?<Tooltip title={tooltip}  placement="top" arrow>
+              <Icon sx={{color:'#898989',fontSize:'18px','.':{backgroundColor:'#000'}}}>error</Icon>
+            </Tooltip>:''}
           {required?<Typography variant="p" className="required">{"(required)"}</Typography>:''}
         </Box>
         <FormControl fullWidth>
@@ -149,34 +139,11 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
             labelId="search-select-label"
             id={value.length!==0?"search-select":"search-select-empty"}
             value={value}
+            sx={value.length>0?{'border':'0'}:''}
             multiple={multiple}
             onChange={handleChange}
             onClose={() => setSearchText("")}
             renderValue={() => 
-
-
-              /* *
-              options.map((option, i) => (
-                option.value===newValue?(
-                  <Box key={i} component="div" className={variant==="default"?"img_box_icon":"full_img_box"}  sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
-                    {option.icon?
-                      (typeof option.icon === 'string'?
-                      <img
-                        loading="lazy"
-                        width="16"
-                        height="16"
-                        src={option.icon}
-                        alt={option.label}
-                      />:
-                        option.icon
-                      )
-                    :''}
-                    {option.label}
-                </Box>
-                ):''
-              ))*/
-
-
               <Box component={"div"} className="boxItems">
               {value.map((option, i) => (
                 <Box key={option.value} component="div" className={variant==="default"?"img_box_icon":"full_img_box"} sx={{ '& > img': { mr: 1, flexShrink: 0, border:'1px solid #DCDCDC' ,p:'4px' , borderRadius:'5px' } }}>
@@ -205,11 +172,8 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
                   {option.label}
                 </Box>
             ))}
-
-            </Box>
-            
+            </Box>      
             }
-            
           >
             {<ListSubheader>
               <TextField
@@ -283,6 +247,7 @@ SelectInput.propTypes = {
   onChange: PropTypes.func,
   variant: PropTypes.string,
   multiple: PropTypes.bool,
+  tooltip: PropTypes.string,
 
 }
 

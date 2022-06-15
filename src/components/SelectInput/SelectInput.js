@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types'
 import {
   FormControl,
@@ -20,15 +20,9 @@ import {theme} from './Style';
 
 function SelectInput({options, type, label, placeholder , variant, texthelper, value, multiple,  required, tooltip, onChange}) {
 
-    const containsText = (text, searchText) =>
-    text.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
-
     const [searchText, setSearchText] = useState("");
 
-    const displayedOptions = useMemo(
-      () => options.filter((option) => containsText(option.label, searchText)),
-      [searchText]
-    );
+    const displayedOptions = options.filter(option => option.label.toLowerCase().includes(searchText.toLowerCase()))
 
     const handleChange = (event) => {
 
@@ -53,7 +47,7 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
             MenuProps={{ autoFocus: false }}
             labelId="search-select-label"
             id={value.length!==0?"search-select":"search-select-empty"}
-            sx={value.length!==0?{border:'0px'}:''}
+            sx={value.length!==0 ? {border:'0px'}:{}}
             value={value}
             multiple={multiple}
             onChange={handleChange}
@@ -139,7 +133,7 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
             labelId="search-select-label"
             id={value.length!==0?"search-select":"search-select-empty"}
             value={value}
-            sx={value.length>0?{'border':'0'}:''}
+            sx={value.length>0?{'border':'0'}:{}}
             multiple={multiple}
             onChange={handleChange}
             onClose={() => setSearchText("")}

@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import {theme} from './Style';
 import PropTypes from 'prop-types'
 
-function TabComponent({value,type,options,orientation,activeIndicatorColor,tabColor,activeColor,onChange}) {
+function TabComponent({value,type,options,variant,orientation,activeIndicatorColor,tabColor,activeColor,onChange}) {
 
 
   const handleChange = (event, newValue) => {
@@ -18,7 +18,7 @@ function TabComponent({value,type,options,orientation,activeIndicatorColor,tabCo
           orientation={orientation}
           value={value}
           onChange={handleChange}
-          variant="scrollable"
+          variant={variant}
           aria-label="scrollable force tabs example"
           sx={{'.Mui-selected':{color:activeColor+"!important"} , '.MuiTab-root':{color:tabColor}}}
         >
@@ -54,7 +54,7 @@ function TabComponent({value,type,options,orientation,activeIndicatorColor,tabCo
 
 
 TabComponent.propTypes = {
-    value: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     options: PropTypes.array.isRequired,
     orientation: PropTypes.string,

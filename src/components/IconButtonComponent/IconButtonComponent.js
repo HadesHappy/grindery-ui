@@ -26,7 +26,7 @@ function IconButtonComponent({color,type,icon,onClick}) {
 
 IconButtonComponent.propTypes = {
     color: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired,
+    icon: PropTypes.string,
 }
 
 export default IconButtonComponent

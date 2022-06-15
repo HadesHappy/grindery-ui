@@ -186,7 +186,7 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
         clearOnBlur={true}
         freeSolo
         value={value}
-        sx={value.length>0?{'.MuiFilledInput-root':{'border':'2px solid #8C30F5'}}:''}
+        sx={value.length>0 ?{'.MuiFilledInput-root':{'border':'2px solid #8C30F5'}} : {}}
         getOptionLabel={(option)=> option.label?option.label:""}
         renderTags={(value) =>
           value.map((option, index) => (
@@ -253,7 +253,6 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
             variant="filled"
             placeholder={value.length===0?placeholder:''}
             value={inputValue}
-            onChange={(e) => console.log(e.target.value)}
           />
         )}
       />

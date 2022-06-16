@@ -1,4 +1,4 @@
-import  {Text , PaperBox , AlertField, InputSuffix, IconButtonComponent, DrawerComponent, SelectSimple, TabComponent , SelectInput , ButtonElement , InputBox , AutoCompleteInput , SwitchInput , DialogBox}  from './components';
+import  {Text , PaperBox , AlertField, InputSuffix, IconButtonComponent, CircularProgressComponent,  DrawerComponent, SelectSimple, TabComponent , SelectInput , ButtonElement , InputBox , AutoCompleteInput , SwitchInput , DialogBox}  from './components';
 import React from 'react';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -6,7 +6,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 
 function App() {
 
-  const options = [{'value':'1' ,'label':'Google Sheets' ,'icon':'./assets/img/google.png', 'reference':'0x912819482039850298545094530495094'}, {'value':'2' , 'label':'MolochDao' , 'icon':['./assets/img/google.png','./assets/img/molochdao.png'] }, {'value':'3' , 'label':'Google' , 'icon':'./assets/img/google.png' }];
+  const options = [{'value':'1' ,'label':'Google Sheets asdasdasd asdasd asdasdasdasdasdasd' ,'paid':true,'icon':'./assets/img/google.png', 'reference':'0x912819482039850298545094530495094'}, {'value':'2' , 'label':'MolochDao' , 'icon':['./assets/img/google.png','./assets/img/molochdao.png'] }, {'value':'3' , 'label':'Google' , 'icon':'./assets/img/google.png' }];
 
   const options_tabs = ['All','Success','Error']
 
@@ -73,12 +73,13 @@ function App() {
     <div className="App">
       <PaperBox>
 
+      <CircularProgressComponent  color="success" />
+
      <IconButtonComponent icon={"search"} type="text" color='#000' onClick={() => console.log('Hey')} />
 
       <TabComponent value={valueTab} type={"text"}  activeIndicatorColor={"#8C30F5"} tabColor={"#0B0D17"} activeColor={"#8C30F5"} options={options_tabs} onChange={handleChangeTabs} />
 
       <TabComponent value={valueTab} type={"icon"} orientation={"vertical"} activeIndicatorColor={"#8C30F5"} tabColor={"#0B0D17"} activeColor={"#8C30F5"} options={options_tabs_icon} onChange={handleChangeTabs} />
-
 
       <AlertField text={"No contacts created yet."} color={"error"} icon={<CheckCircleOutlineIcon fontSize="inherit" />} />
 

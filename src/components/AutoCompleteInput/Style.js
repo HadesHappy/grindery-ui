@@ -45,7 +45,7 @@ export const theme = createTheme({
                     border: 0,
                 },
                 input:{
-                    padding: '15px 5px 15px 15px',
+                    padding: '15px 70px 15px 15px',
                 }
             }
         },
@@ -70,6 +70,9 @@ export const theme = createTheme({
                         marginRight:'5px',
                         marginTop:'10px',
                         marginBottom:'10px',
+                        overflow: 'hidden',
+                        whiteSpace: 'normal',
+                        textOverflow: 'ellipsis',
                         '& > img':{ 
                             border: 0,
                         },
@@ -106,11 +109,34 @@ export const theme = createTheme({
                     },
                     '& > div > .Mui-focused': {
                         border:'2px solid #8C30F5'
+                    },
+                    position:'relative',    
+                    '& .paid-label':{
+                        position: 'absolute',
+                        top: '25px',
+                        right: '50px',
+                        backgroundColor:'#FF5858',
+                        borderRadius:'2px',
+                    },
+                    '& .paid-label span':{
+
+                        padding:'2px 6px',
+                        textTransform: 'uppercase',
+                        color: '#FFFFFF',
+                        fontFamily: 'Roboto',
+                        fontStyle: 'normal',
+                        fontWeight: '700',
+                        fontSize: '8px',
+                        margin:'0px',
+                        display:'flex'
                     }
                 },
                 option:{
                     fontSize: '16px',
-                    color: '#0B0D17',
+                    color: '#0B0D17',       
+                    textOverflow:'ellipsis',
+                    overflow: 'hidden',
+                    whiteSpace: 'normal',
                     '&:hover':{
                         backgroundColor:'#FDFBFF', 
                     },
@@ -157,10 +183,28 @@ export const theme = createTheme({
                         textOverflow:'ellipsis',
                         overflow: 'hidden',
                         whiteSpace: 'nowrap',
+                    },
+                    '& .paid-label':{
+                        backgroundColor:'#FF5858',
+                        borderRadius:'2px',
+                        right:'15px',
+                        margin:'0px',
+                        display:'flex'
+                    },
+                    '& .paid-label span':{
+
+                        padding:'2px 6px',
+                        textTransform: 'uppercase',
+                        color: '#FFFFFF',
+                        fontFamily: 'Roboto',
+                        fontStyle: 'normal',
+                        fontWeight: '700',
+                        fontSize: '8px',
+                        margin:'0px',
                     }
                 },
                 input:{
-                    padding:'15px 5px 15px 5px!important'
+                    padding:'15px 70px 15px 5px!important'
                 },
                 endAdornment:{
                     '& > button':{	

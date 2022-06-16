@@ -5,9 +5,10 @@ export const theme = createTheme({
         MuiPaper:{
             styleOverrides:{
                 root: {
-                    padding: '80px 106px',
+                    padding: '80px 10px',
                     borderRadius:10,
                     border: '1px solid 1px solid #DCDCDC',
+                    width: '375px',
                 }
             }
         }

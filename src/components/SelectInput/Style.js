@@ -64,6 +64,9 @@ export const theme = createTheme({
                         display:'flex',
                         flexWrap:'wrap',
                         rowGap: '5px',
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden',
+                        whiteSpace: 'normal',
                     },
                     "& #search-input": {
                         padding: '10px 5px 10px 10px',
@@ -103,9 +106,6 @@ export const theme = createTheme({
                         '& .icon_second':{
                             marginLeft: '-12px',
                         },
-                        '& .icon_first':{
-                            zIndex: '1',
-                        }
                     },
                     "& .img_box_icon > img": {
                         background: '#fff',

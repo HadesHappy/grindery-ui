@@ -118,9 +118,10 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
                       )
                 :''}
                 {option.label}
+                {option.paid?<Box component={"div"} className={"paid-label"}> <Typography variant="p">{"Paid"}</Typography></Box>:''}
               </Box>
             )}
-            renderInput={(params) =>  <TextField {...params} label="" 
+            renderInput={(params) => <> <TextField {...params} label="" 
             placeholder={placeholder}
             InputProps={{ ...params.InputProps, 
             startAdornment: value.length === 0 ?(<InputAdornment position="start"> <Icon>search</Icon>
@@ -133,7 +134,8 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
                       height="16"
                       src={value[0].icon}
                       alt={value[0].label}
-                    />:
+                    />
+                    :
                     value[0].icon.map((icon,i)=>(
                       <img
                       key={i}
@@ -146,9 +148,13 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
                      />
                     ))
                     ):'') 
+
+                    
              ,
             }} 
             />
+             {value.length>0?value[0].paid!==undefined?<Box component={"div"} className={"paid-label"}> <Typography variant="p">{"Paid"}</Typography></Box>:'':''}
+            </>
           }
         />
         <Typography variant="span" className="texthelper">{texthelper}</Typography>

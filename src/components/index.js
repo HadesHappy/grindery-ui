@@ -12,3 +12,4 @@ export { default as AlertField} from './AlertField';
 export { default as TabComponent} from './TabComponent';
 export { default as IconButtonComponent } from './IconButtonComponent';
 export { default as DrawerComponent } from './DrawerComponent';
+export { default as CircularProgressComponent } from './CircularProgressComponent';

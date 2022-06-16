@@ -18,6 +18,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import {theme} from './Style';
 
 
+
+
+
 function SelectInput({options, type, label, placeholder , variant, texthelper, value, multiple,  required, tooltip, onChange}) {
 
     const [searchText, setSearchText] = useState("");
@@ -44,7 +47,15 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
         <FormControl fullWidth>
           {value.length===0?<InputLabel disableAnimation shrink={false} focused={false}>{placeholder}</InputLabel>:''}
           <Select
-            MenuProps={{ autoFocus: false }}
+            MenuProps={{ 
+
+              PaperProps: {
+                sx: {
+                  maxHeight: 450,
+                }
+              } 
+
+             }}
             labelId="search-select-label"
             id={value.length!==0?"search-select":"search-select-empty"}
             sx={value.length!==0 ? {border:'0px'}:{}}
@@ -129,7 +140,15 @@ function SelectInput({options, type, label, placeholder , variant, texthelper, v
         <FormControl fullWidth>
           {value.length===0?<InputLabel disableAnimation shrink={false} focused={false}>{placeholder}</InputLabel>:''}
           <Select
-            MenuProps={{ autoFocus: true }}
+            MenuProps={{
+              
+            PaperProps: {
+              sx: {
+                maxHeight: 450,
+              }
+            } 
+          
+            }}
             labelId="search-select-label"
             id={value.length!==0?"search-select":"search-select-empty"}
             value={value}

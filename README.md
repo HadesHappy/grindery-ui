@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+# Grindery UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Step to publish in NPM
 
-## Available Scripts
+1) npx create-react-app grindery-library
+2) Copy folder "components" from https://github.com/grindery-io/grindery-ui/tree/master/src to root --> src
+3) Create index.js in root ----> src/index.js
+4) Copy on index.js this
 
-In the project directory, you can run:
+        export  { default as Button}  from './components/ButtonElement/ButtonElement';
+        export { default as AutoCompleteInput } from './components/AutoCompleteInput/AutoCompleteInput';
+        export { default as InputBox } from './components/InputBox/InputBox';
+        export {default as SelectInput} from  './components/SelectInput/SelectInput';
+        export {default as PaperBox} from './components/PaperBox/PaperBox';
+        export {default as Text} from './components/Text/Text'; 
+        export {default as InputSuffix} from './components/InputSuffix/InputSuffix';
+        export { default as AlertField } from './components/AlertField/AlertField';
+        export { default as SwitchInput} from './components/SwitchInput/SwitchInput';
+        export { default as DialogBox} from './components/DialogBox/DialogBox';
+        export { default as SelectSimple} from './components/SelectSimple/SelectSimple';
+        export { default as Drawer} from './components/DrawerComponent/DrawerComponent';
+        export { default as IconButton}  from './components/IconButtonComponent/IconButtonComponent';
+        export { default as TabComponent} from './components/TabComponent/TabComponent';
+        export { default as CircularProgress} from './components/CircularProgressComponent/CircularProgressComponent';
 
-### `npm start`
+5) npm i -D @babel/cli @babel/core @babel/preset-env @babel/preset-react rollup @rollup/plugin-babel rollup-plugin-delete rollup-plugin-peer-deps-external npm-run-all
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+6) Change package.json like this.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+        {
+          "name": "grindery-ui",
+          "files": [
+            "./dist"
+          ],
+          "version": "0.2.1",
+          "main": "dist/index.cjs.js",
+          "module": "dist/index.esm.js",
+          "source": "src/index.js",
+          "dependencies": {
+            "@emotion/react": "^11.9.0",
+            "@emotion/styled": "^11.8.1",
+            "@mui/icons-material": "^5.8.2",
+            "@mui/material": "^5.8.2",
+            "@testing-library/jest-dom": "^5.16.4",
+            "@testing-library/react": "^13.3.0",
+            "@testing-library/user-event": "^13.5.0",
+            "react-scripts": "5.0.1",
+            "web-vitals": "^2.1.4"
+          },
+          "scripts": {
+            "build": "rollup -c",
+            "build-watch": "rollup -c -w",
+            "start-playground": "cd playground && npm run start",
+            "i-all": "npm i && cd playground && npm i",
+            "dev": "npm-run-all --parallel build-watch start-playground"
+          },
+          "eslintConfig": {
+            "extends": [
+              "react-app",
+              "react-app/jest"
+            ]
+          },
+          "browserslist": {
+            "production": [
+              ">0.2%",
+              "not dead",
+              "not op_mini all"
+            ],
+            "development": [
+              "last 1 chrome version",
+              "last 1 firefox version",
+              "last 1 safari version"
+            ]
+          },
+          "devDependencies": {
+            "@babel/cli": "^7.17.10",
+            "@babel/core": "^7.18.2",
+            "@babel/preset-env": "^7.18.2",
+            "@babel/preset-react": "^7.17.12",
+            "@rollup/plugin-babel": "^5.3.1",
+            "npm-run-all": "^4.1.5",
+            "rollup": "^2.75.5",
+            "rollup-plugin-delete": "^2.0.0",
+            "rollup-plugin-peer-deps-external": "^2.2.4"
+          },
+          "peerDependencies": {
+            "react": "^18.1.0",
+            "react-dom": "^18.1.0"
+          }
+        }
 
-### `npm test`
+7) npm update && npm run build
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+8) npm login --> add username --> password --> email and code from email
 
-### `npm run build`
+9) npm publish
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

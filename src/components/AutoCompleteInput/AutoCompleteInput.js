@@ -11,22 +11,14 @@ function AutoCompleteInput({options,label,placeholder, type, size,required,texth
   const [open, setOpen] = useState(false);
 
 
-  const containsText = (text, searchText) =>
-  text.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
-
   const [searchText, setSearchText] = useState("");
 
   const [inputValue, setInputValue] = useState("");
 
-  const displayedOptions = useMemo(
-    () => options.filter((option) => containsText(option.label, searchText)),
-    [searchText]
-  );
+  const displayedOptions = options.filter(option => option.label.toLowerCase().includes(searchText.toLowerCase()))
 
   const handleChange = (event, obj) => {
 
-    console.log(obj)
-  
     if(obj===null){
       onChange([]);
     }else{

@@ -15,11 +15,11 @@ import { Slate, Editable, withReact, ReactEditor } from "slate-react";
 import { withHistory } from "slate-history";
 import { theme } from "./Style";
 import SearchIcon from "@mui/icons-material/Search";
-import _, { add } from "lodash";
-import TabComponent from "../TabComponent";
+import _ from "lodash";
+import TabComponent from "../TabComponent/TabComponent";
 import { styled } from "@mui/material/styles";
-import InputBox from "../InputBox";
-import ButtonElement from "../ButtonElement";
+import InputBox from "../InputBox/InputBox";
+import ButtonElement from "../ButtonElement/ButtonElement";
 
 const RichInput = ({
   value,

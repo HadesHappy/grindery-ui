@@ -15,7 +15,7 @@ import { Slate, Editable, withReact, ReactEditor } from "slate-react";
 import { withHistory } from "slate-history";
 import { theme } from "./Style";
 import SearchIcon from "@mui/icons-material/Search";
-import _ from "lodash";
+import _, { add } from "lodash";
 import TabComponent from "../TabComponent";
 import { styled } from "@mui/material/styles";
 import InputBox from "../InputBox";
@@ -29,7 +29,8 @@ const RichInput = ({
   required,
   tooltip,
   placeholder,
-  hasAddressBook
+  hasAddressBook,
+  user
 }) => {
   const editor = useMemo(
     () => withReferences(withReact(withHistory(createEditor()))),
@@ -38,7 +39,7 @@ const RichInput = ({
   const groupedOptions = _.groupBy(options, "group");
   const [tab, setTab] = useState(0);
   const [searchText, setSearchText] = useState("");
-  const cachedAddressBook = localStorage.getItem('gr_addressBook')
+  const cachedAddressBook = localStorage.getItem('gr_addressBook__'+user)
   const [addressBook, setAddressBook] = useState(cachedAddressBook ? JSON.parse(cachedAddressBook) : []);
   const [addressBookView, setAddressBookView] = useState('list') // add, edit
   const [selectedAddress, setSelectedAddress] = useState(null)
@@ -152,11 +153,13 @@ const RichInput = ({
           <div className="rich-input__dropdown-address-book-title" style={{marginLeft: addressBookView === 'list' ? 0 : 'auto'}}>
             {addressBookView === 'list' && "Address Book"}
             {addressBookView === 'add' && "Add new"}
+            {addressBookView === 'edit' && "Edit"}
           </div>
           <IconButton onClick={()=>{
             if(addressBookView === 'list'){
               setAddressBookView('add')
             } else {
+              setSelectedAddress(null)
               setAddressBookView('list')
             }
           }} style={{position: 'absolute', left: addressBookView === 'list' ? 'auto' : '15px', right: addressBookView !== 'list' ? 'auto' : '15px'}}>
@@ -231,6 +234,20 @@ const RichInput = ({
                     setAddressBook={setAddressBook}
                     addressBook={addressBook}
                     editor={editor}
+                    user={user}
+                  />
+                </div>
+              )}
+              {addressBookView === 'edit' && (
+                <div className="rich-input__dropdown-address-book-form">
+                  <EditAddressForm 
+                    setAddressBookView={setAddressBookView}
+                    setAddressBook={setAddressBook}
+                    addressBook={addressBook}
+                    editor={editor}
+                    selectedAddress={selectedAddress}
+                    setSelectedAddress={setSelectedAddress}
+                    user={user}
                   />
                 </div>
               )}
@@ -306,7 +323,11 @@ const RichInput = ({
       <div className="rich-input__dropdown-option-actions">
         {option.isAddressBook && (
           <>
-            <IconButton aria-label="edit">
+            <IconButton aria-label="edit" onClick={()=>{
+              setSelectedAddress(option)
+              ReactEditor.focus(editor)
+              setAddressBookView('edit')
+            }}>
               <EditIcon />
             </IconButton>
             <IconButton aria-label="delete" onClick={()=>{
@@ -328,7 +349,7 @@ const RichInput = ({
     const newAddressBook = [
       ...addressBook.filter(address=>address.value !== option.value && address.label !== option.label)
     ]
-    localStorage.setItem('gr_addressBook', JSON.stringify(newAddressBook))
+    localStorage.setItem('gr_addressBook__'+user, JSON.stringify(newAddressBook))
     ReactEditor.focus(editor)
     setAddressBook(newAddressBook)
   }
@@ -445,7 +466,7 @@ const Element = (props) => {
   }
 };
 
-const AddAddressForm = ({addressBook, setAddressBook, setAddressBookView, editor}) => {
+const AddAddressForm = ({addressBook, setAddressBook, setAddressBookView, editor, user}) => {
   const [name, setName] = useState("")
   const [address, setAddress] = useState("")
 
@@ -460,7 +481,7 @@ const AddAddressForm = ({addressBook, setAddressBook, setAddressBookView, editor
       insertValue: true,
       isAddressBook: true
     }, ...addressBook]
-    localStorage.setItem('gr_addressBook', JSON.stringify(newAddressBook))
+    localStorage.setItem('gr_addressBook__'+user, JSON.stringify(newAddressBook))
     setAddressBook(newAddressBook)
     ReactEditor.focus(editor);
     setAddressBookView('list')
@@ -488,6 +509,55 @@ const AddAddressForm = ({addressBook, setAddressBook, setAddressBookView, editor
           }}
         />
         <ButtonElement value="Add Address" color="primary" onClick={handleSubmit} />
+    </>
+  )
+}
+
+const EditAddressForm = ({addressBook, setAddressBook, setAddressBookView, editor, selectedAddress, setSelectedAddress, user}) => {
+  const [name, setName] = useState(selectedAddress.label || "")
+  const [address, setAddress] = useState(selectedAddress.value || "")
+
+  const handleSubmit = () => {
+    if(name && address){
+    const newAddressBook = [...addressBook.map(addr=>{
+      if(addr.value === selectedAddress.value && addr.label === selectedAddress.label){
+        return {
+          ...addr,
+          label: name,
+          value: address,
+          reference: address
+        }
+      }
+    })]
+    localStorage.setItem('gr_addressBook__'+user, JSON.stringify(newAddressBook))
+    setAddressBook(newAddressBook)
+    setSelectedAddress(null)
+    ReactEditor.focus(editor);
+    setAddressBookView('list')
+    } else {
+      ReactEditor.focus(editor);
+    }
+  }
+
+  return (
+    <>
+      <InputBox 
+          label="Name"
+          placeholder="Name"
+          value={name}
+          onChange={e=>{
+            setName(e.target.value)
+          }}
+        />
+        <InputBox 
+          label="Contract Address"
+          placeholder="0x"
+          value={address}
+          onChange={e=>{
+            setAddress(e.target.value)
+          }}
+        />
+        <ButtonElement value="Save Address" color="primary" onClick={handleSubmit} />
     </>
   )
 }
@@ -578,7 +648,7 @@ const RichInputWrapper = styled("div")({
     "& .rich-input__dropdown-options-wrapper": {
       maxHeight: "285px",
       overflow: "auto",
-      overscrollBehavior: 'contain'
+      overscrollBehavior: 'auto'
     },
     "& .rich-input__dropdown-options": {
       alignItems: "flex-start",

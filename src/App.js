@@ -10,7 +10,7 @@ function App() {
 
   const richInputOptions = [
     {
-      value: "1",
+      value: "{{trigger.address}}",
       label: "Wallet address",
       paid: true,
       icon: "./assets/img/google.png",
@@ -18,28 +18,28 @@ function App() {
       group: "Google Sheets",
     },
     {
-      value: "2",
+      value: "{{trigger.txdate}}",
       label: "Transaction date",
       icon: "./assets/img/molochdao.png",
       group: "MolochDao",
       reference: "05/21/2022",
     },
     {
-      value: "3",
+      value: "{{trigger.title}}",
       label: "Title",
       icon: "./assets/img/google.png",
       group: "Google Sheets",
       reference: "New title",
     },
     {
-      value: "4",
+      value: "{{trigger.txhash}}",
       label: "Transaction hash",
       icon: "./assets/img/molochdao.png",
       group: "MolochDao",
       reference: "0x912819482039850298545094530495094",
     },
     {
-      value: "5",
+      value: "{{trigger.details}}",
       label: "Details",
       icon: "./assets/img/google.png",
       group: "Google Sheets",
@@ -113,22 +113,6 @@ function App() {
   return (
     <div className="App">
 
-      <div style={{ maxWidth: "375px", boxSizing: 'border-box', margin: "50px auto", padding: '20px', border: '1px solid #ddd' }}>
-        <div style={{margin: '0 0 30px', textAlign: 'left', opacity: 0.5}}>&lt;RichInput&gt; component example</div>
-        <RichInput
-          required
-          label="Some Label"
-          value={richInputValue}
-          options={richInputOptions}
-          placeholder="Enter some value here"
-          tooltip="Some tooltip with long text. Bla bla bla."
-          hasAddressBook
-          onChange={(val) => {
-            setRichInputValue(val);
-          }}
-        />
-      </div>
-
       <PaperBox>
 
       <CircularProgressComponent  color="success" />
@@ -191,6 +175,24 @@ function App() {
         <ButtonElement value={"Back"} variant="outlined" color="secondary"  size="large"  disabled={true}/>
         <ButtonElement value={"Back"} variant="outlined" color="secondary"  size="large"  disabled={false}/>
       </PaperBox>
+
+      <div style={{ maxWidth: "375px", boxSizing: 'border-box', margin: "50px auto", padding: '20px', border: '1px solid #ddd' }}>
+        <div style={{margin: '0 0 30px', textAlign: 'left', opacity: 0.5}}>&lt;RichInput&gt; component example</div>
+        <RichInput
+          required
+          label="Some Label"
+          value={richInputValue}
+          options={richInputOptions}
+          placeholder="Enter some value here"
+          tooltip="Some tooltip with long text. Bla bla bla."
+          hasAddressBook
+          user="123:123"
+          onChange={(val) => {
+            setRichInputValue(val);
+          }}
+        />
+      </div>
+      
     </div>
   )
 }

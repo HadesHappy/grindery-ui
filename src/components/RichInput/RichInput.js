@@ -1,7 +1,6 @@
-import React, { useMemo, useCallback, useState } from "react";
+import React, { useRef, useMemo, useCallback, useState, useEffect } from "react";
 import {
   Box,
-  ClickAwayListener,
   Icon,
   IconButton,
   InputAdornment,
@@ -13,9 +12,10 @@ import {
 import { createEditor, Transforms } from "slate";
 import { Slate, Editable, withReact, ReactEditor } from "slate-react";
 import { withHistory } from "slate-history";
+import Foco from "react-foco";
+import _ from "lodash";
 import { theme } from "./Style";
 import SearchIcon from "@mui/icons-material/Search";
-import _ from "lodash";
 import TabComponent from "../TabComponent/TabComponent";
 import { styled } from "@mui/material/styles";
 import InputBox from "../InputBox/InputBox";
@@ -31,20 +31,20 @@ const RichInput = ({
   placeholder,
   hasAddressBook,
   user,
+  addressBook,
+  setAddressBook
 }) => {
   const editor = useMemo(
     () => withReferences(withReact(withHistory(createEditor()))),
     []
   );
+  const inputRef = useRef(null);
   const groupedOptions = _.groupBy(options, "group");
   const [tab, setTab] = useState(0);
   const [searchText, setSearchText] = useState("");
-  const cachedAddressBook = localStorage.getItem("gr_addressBook__" + user);
-  const [addressBook, setAddressBook] = useState(
-    cachedAddressBook ? JSON.parse(cachedAddressBook) : []
-  );
   const [addressBookView, setAddressBookView] = useState("list"); // add, edit
   const [selectedAddress, setSelectedAddress] = useState(null);
+  const [focused, setFocused] = useState(false);
 
   const renderElement = useCallback((props) => {
     return <Element {...props} />;
@@ -130,7 +130,7 @@ const RichInput = ({
     if (hasAddressBook) {
       tabs.push("Address Book");
     }
-    return (
+    return focused ? (
       <Box className="rich-input__dropdown">
         {tabs.length > 1 && (
           <Box className="rich-input__dropdown-tabs-wrapper">
@@ -273,7 +273,7 @@ const RichInput = ({
           )}
         </Box>
       </Box>
-    );
+    ) : null;
   };
 
   const renderSearch = () => (
@@ -368,10 +368,6 @@ const RichInput = ({
     </Box>
   );
 
-  const handleClickAway = () => {
-    setSearchText("");
-  };
-
   const handleOptionDelete = (option) => {
     const newAddressBook = [
       ...addressBook.filter(
@@ -389,10 +385,18 @@ const RichInput = ({
 
   return (
     <ThemeProvider theme={theme}>
-      <RichInputWrapper>
-        <Box className="rich-input">
-          {renderLabel()}
-          <ClickAwayListener onClickAway={handleClickAway}>
+      <Foco
+        onClickOutside={() => {
+          setFocused(false);
+        }}
+        onFocusOutside={() => {
+          setFocused(false);
+          setSearchText("");
+        }}
+      >
+        <RichInputWrapper ref={inputRef}>
+          <Box className="rich-input">
+            {renderLabel()}
             <div>
               <Slate
                 editor={editor}
@@ -421,13 +425,16 @@ const RichInput = ({
                       return;
                     }
                   }}
+                  onFocus={() => {
+                    setFocused(true);
+                  }}
                 />
                 {(options.length > 0 || hasAddressBook) && renderDropdown()}
               </Slate>
             </div>
-          </ClickAwayListener>
-        </Box>
-      </RichInputWrapper>
+          </Box>
+        </RichInputWrapper>
+      </Foco>
     </ThemeProvider>
   );
 };
@@ -659,14 +666,9 @@ const RichInputWrapper = styled("div")({
       border: "1px solid #DCDCDC",
       boxShadow: "none",
     },
-    "&:focus-within": {
-      "& .rich-input__dropdown": {
-        display: "block",
-      },
-      "& .rich-input__search-input .MuiOutlinedInput-root": {
-        border: "1px solid #8C30F5",
-        boxShadow: "inset 0px 0px 0px 1px #8C30F5",
-      },
+    "& .rich-input__search-input .MuiOutlinedInput-root.Mui-focused": {
+      border: "1px solid #8C30F5",
+      boxShadow: "inset 0px 0px 0px 1px #8C30F5",
     },
     "& .rich-input__label-wrapper": {
       display: "flex",
@@ -698,7 +700,7 @@ const RichInputWrapper = styled("div")({
       boxShadow: "2px 2px 24px rgba(0, 0, 0, 0.15)",
       borderRadius: "5px",
       boxSizing: "border-box",
-      display: "none",
+      //display: "none",
       zIndex: 2,
     },
     "& .rich-input__dropdown-tabs-wrapper": {

@@ -47,6 +47,11 @@ function App() {
     },
   ];
 
+  const cachedAddressBook = localStorage.getItem("gr_addressBook__123");
+  const [addressBook, setAddressBook] = React.useState(
+    cachedAddressBook ? JSON.parse(cachedAddressBook) : []
+  );
+
   const options_tabs = ['All','Success','Error']
 
 
@@ -68,6 +73,8 @@ function App() {
   const [valueTab,setValueTab] = React.useState(0)
 
   const [valueMoney,setValueMoney] = React.useState('');
+
+  
 
   function handleChange(values) {
     
@@ -190,6 +197,8 @@ function App() {
           onChange={(val) => {
             setRichInputValue(val);
           }}
+          addressBook={addressBook} 
+          setAddressBook={setAddressBook}
         />
       </div>
       

@@ -1,4 +1,4 @@
-import  {Text , PaperBox , AlertField, InputSuffix, IconButtonComponent, CircularProgressComponent,  DrawerComponent, SelectSimple, TabComponent , SelectInput , ButtonElement , InputBox , AutoCompleteInput , SwitchInput , DialogBox}  from './components';
+import  {Text , PaperBox , AlertField, InputSuffix, IconButtonComponent, CircularProgressComponent,  DrawerComponent, SelectSimple, TabComponent , SelectInput , ButtonElement , InputBox , AutoCompleteInput , SwitchInput , DialogBox, RichInput}  from './components';
 import React from 'react';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -8,6 +8,45 @@ function App() {
 
   const options = [{'value':'1' ,'label':'Google Sheets asdasdasd asdasd asdasdasdasdasdasd' ,'paid':true,'icon':'./assets/img/google.png', 'reference':'0x912819482039850298545094530495094'}, {'value':'2' , 'label':'MolochDao' , 'icon':['./assets/img/google.png','./assets/img/molochdao.png'] }, {'value':'3' , 'label':'Google' , 'icon':'./assets/img/google.png' }];
 
+  const richInputOptions = [
+    {
+      value: "1",
+      label: "Wallet address",
+      paid: true,
+      icon: "./assets/img/google.png",
+      reference: "0x912819482039850298545094530495094",
+      group: "Google Sheets",
+    },
+    {
+      value: "2",
+      label: "Transaction date",
+      icon: "./assets/img/molochdao.png",
+      group: "MolochDao",
+      reference: "05/21/2022",
+    },
+    {
+      value: "3",
+      label: "Title",
+      icon: "./assets/img/google.png",
+      group: "Google Sheets",
+      reference: "New title",
+    },
+    {
+      value: "4",
+      label: "Transaction hash",
+      icon: "./assets/img/molochdao.png",
+      group: "MolochDao",
+      reference: "0x912819482039850298545094530495094",
+    },
+    {
+      value: "5",
+      label: "Details",
+      icon: "./assets/img/google.png",
+      group: "Google Sheets",
+      reference: "Some long description text",
+    },
+  ];
+
   const options_tabs = ['All','Success','Error']
 
 
@@ -16,6 +55,8 @@ function App() {
   const moneyOptions = [{label:'USD', value:'1'},{label:'EUR', value:'2'}]
 
   const [value, setValue] = React.useState([]);
+
+  const [richInputValue, setRichInputValue] = React.useState("");
 
   const [switchValue, setSwitchValue] = React.useState(false);
 
@@ -71,6 +112,23 @@ function App() {
 
   return (
     <div className="App">
+
+      <div style={{ maxWidth: "375px", boxSizing: 'border-box', margin: "50px auto", padding: '20px', border: '1px solid #ddd' }}>
+        <div style={{margin: '0 0 30px', textAlign: 'left', opacity: 0.5}}>&lt;RichInput&gt; component example</div>
+        <RichInput
+          required
+          label="Some Label"
+          value={richInputValue}
+          options={richInputOptions}
+          placeholder="Enter some value here"
+          tooltip="Some tooltip with long text. Bla bla bla."
+          hasAddressBook
+          onChange={(val) => {
+            setRichInputValue(val);
+          }}
+        />
+      </div>
+
       <PaperBox>
 
       <CircularProgressComponent  color="success" />

@@ -280,7 +280,6 @@ const RichInput = ({
     <Box sx={{ margin: "10px" }}>
       <TextField
         size="small"
-        autoFocus
         placeholder="Search..."
         fullWidth
         value={searchText}

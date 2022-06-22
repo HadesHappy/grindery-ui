@@ -154,7 +154,13 @@ function SelectInput({
                       ) : (
                         ""
                       )}
-                      {option.label}
+                      <Typography
+                        sx={{ margin: 0, color: "#0B0D17!important" }}
+                        variant="p"
+                        title={option.label}
+                      >
+                        {option.label}
+                      </Typography>
                     </Box>
                   ))}
                 </Box>
@@ -211,15 +217,26 @@ function SelectInput({
                         <Typography
                           sx={{ margin: 0, color: "#0B0D17!important" }}
                           variant="p"
+                          title={option.label}
                         >
                           {option.label}
                         </Typography>
-                        <Typography sx={styleDescription} variant="p">
+                        <Typography
+                          sx={styleDescription}
+                          variant="p"
+                          title={option.description}
+                        >
                           {option.description}
                         </Typography>
                       </Box>
                     ) : (
-                      option.label
+                      <Typography
+                        sx={{ margin: 0, color: "#0B0D17!important" }}
+                        variant="p"
+                        title={option.label}
+                      >
+                        {option.label}
+                      </Typography>
                     )}
                   </Box>
                 </MenuItem>
@@ -334,7 +351,13 @@ function SelectInput({
                       ) : (
                         ""
                       )}
-                      {option.label}
+                      <Typography
+                        sx={{ margin: 0, color: "#0B0D17!important" }}
+                        variant="p"
+                        title={option.label}
+                      >
+                        {option.label}
+                      </Typography>
                     </Box>
                   ))}
                 </Box>
@@ -400,7 +423,13 @@ function SelectInput({
                     {variant === "full" ? (
                       <h5>{option.label}</h5>
                     ) : (
-                      option.label
+                      <Typography
+                        sx={{ margin: 0, color: "#0B0D17!important" }}
+                        variant="p"
+                        title={option.label}
+                      >
+                        {option.label}
+                      </Typography>
                     )}
                     {variant === "full" ? <span>{option.reference}</span> : ""}
                   </Box>

@@ -151,7 +151,8 @@ function AutoCompleteInput({
               value.length > 0
                 ? {
                     ".MuiOutlinedInput-root": {
-                      boxShadow: "0px 0px 0px 2px #8C30F5",
+                      boxShadow: "inset 0px 0px 0px 1px #8C30F5",
+                      border: "1px solid #8C30F5",
                     },
                   }
                 : { ".MuiAutocomplete-clearIndicator": { display: "none" } }
@@ -214,15 +215,26 @@ function AutoCompleteInput({
                     <Typography
                       sx={{ margin: 0, color: "#0B0D17!important" }}
                       variant="p"
+                      title={option.label}
                     >
                       {option.label}
                     </Typography>
-                    <Typography sx={styleDescription} variant="p">
+                    <Typography
+                      sx={styleDescription}
+                      variant="p"
+                      title={option.description}
+                    >
                       {option.description}
                     </Typography>
                   </Box>
                 ) : (
-                  option.label
+                  <Typography
+                    sx={{ margin: 0, color: "#0B0D17!important" }}
+                    variant="p"
+                    title={option.label}
+                  >
+                    {option.label}
+                  </Typography>
                 )}
                 {option.paid ? (
                   <Box component={"div"} className={"paid-label"}>
@@ -350,7 +362,8 @@ function AutoCompleteInput({
               value.length > 0
                 ? {
                     ".MuiFilledInput-root": {
-                      boxShadow: "0px 0px 0px 2px #8C30F5",
+                      boxShadow: "inset 0px 0px 0px 1px #8C30F5",
+                      border: "1px solid #8C30F5",
                     },
                   }
                 : {}

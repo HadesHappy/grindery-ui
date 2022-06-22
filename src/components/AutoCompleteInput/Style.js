@@ -108,7 +108,8 @@ export const theme = createTheme({
             width: "240px",
           },
           "& > div > .Mui-focused": {
-            boxShadow: "0px 0px 0px 2px #8C30F5",
+            boxShadow: "inset 0px 0px 0px 1px #8C30F5",
+            border: "1px solid #8C30F5",
           },
           position: "relative",
           "& .paid-label": {
@@ -135,7 +136,6 @@ export const theme = createTheme({
           color: "#0B0D17",
           textOverflow: "ellipsis",
           overflow: "hidden",
-          whiteSpace: "normal",
           "&:hover": {
             backgroundColor: "#FDFBFF",
           },
@@ -165,6 +165,10 @@ export const theme = createTheme({
             lineHeight: "150%",
             color: "#898989",
             margin: "0px",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            width: "260px",
           },
           "& .full_img_box": {
             display: "inline-flex",
@@ -200,6 +204,9 @@ export const theme = createTheme({
             fontWeight: "700",
             fontSize: "8px",
             margin: "0px",
+            overflow: "inherit",
+            whiteSpace: "inherit",
+            width: "inherit",
           },
         },
         input: {
@@ -264,7 +271,7 @@ export const theme = createTheme({
     Mui: {
       focused: {
         "& .MuiFilledInput-root": {
-          boxShadow: "0px 0px 0px 2px #8C30F5",
+          boxShadow: "inset 0px 0px 0px 1px #8C30F5",
         },
       },
     },

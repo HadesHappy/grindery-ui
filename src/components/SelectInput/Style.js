@@ -23,7 +23,8 @@ export const theme = createTheme({
           background: "#F4F5F7",
           padding: "0px!important",
           "& #search-select": {
-            boxShadow: "0px 0px 0px 2px #8C30F5",
+            boxShadow: "inset 0px 0px 0px 1px #8C30F5",
+            border: "1px solid #8C30F5",
           },
         },
         notchedOutline: {
@@ -41,11 +42,13 @@ export const theme = createTheme({
           marginTop: "4px",
           "& .Mui-focused": {
             "& #search-select": {
-              boxShadow: "0px 0px 0px 2px #8C30F5",
+              boxShadow: "inset 0px 0px 0px 1px #8C30F5",
+              border: "1px solid #8C30F5",
               padding: "10px 15px 10px 15px!important",
             },
             "& #search-select-empty": {
-              boxShadow: "0px 0px 0px 2px #8C30F5",
+              boxShadow: "inset 0px 0px 0px 1px #8C30F5",
+              border: "1px solid #8C30F5",
             },
           },
           "& #search-select": {
@@ -104,6 +107,12 @@ export const theme = createTheme({
           },
           "& .img_box_icon > img": {
             background: "#fff",
+          },
+          "& .img_box_icon > span": {
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            width: "260px",
           },
           "& .img_box > img": {
             border: 0,
@@ -256,6 +265,9 @@ export const theme = createTheme({
             lineHeight: "150%",
             color: "#898989",
             margin: "0px",
+            width: "280px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           },
         },
       },

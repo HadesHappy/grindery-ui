@@ -23,8 +23,9 @@ function App() {
   const options = [
     {
       value: "1",
-      label: "Google Sheets",
-      description: "Brief description of this Moloch DAO function here",
+      label: "Google Sheets Brief description of this Moloch DAO function here",
+      description:
+        "Brief description of this Moloch DAO function here Brief description of this Moloch DAO function here ",
       paid: true,
       icon: "./assets/img/google.png",
       reference: "0x912819482039850298545094530495094",
@@ -32,7 +33,7 @@ function App() {
     {
       value: "2",
       label: "MolochDao",
-      icon: ["./assets/img/google.png", "./assets/img/molochdao.png"],
+      icon: "./assets/img/molochdao.png",
     },
     { value: "3", label: "Google", icon: "./assets/img/google.png" },
   ];

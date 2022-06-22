@@ -52,7 +52,8 @@ export const theme = createTheme({
             borderRadius: "5px",
             width: "100%",
             "&:focus": {
-              boxShadow: "0px 0px 0px 2px #8C30F5",
+              boxShadow: "inset 0px 0px 0px 1px #8C30F5",
+              border: "1px solid #8C30F5",
             },
           },
           "& fieldset": {

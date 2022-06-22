@@ -1,11 +1,8 @@
-import React from 'react'
-import { CircularProgress } from '@mui/material';
+import React from "react";
+import { CircularProgress } from "@mui/material";
 
 function CircularProgressComponent(props) {
-  return (
-      <CircularProgress {...props} />
-  )
+  return <CircularProgress {...props} />;
 }
 
-
-export default CircularProgressComponent
+export default CircularProgressComponent;

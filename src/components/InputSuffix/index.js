@@ -1,1 +1,1 @@
-export { default } from './InputSuffix';
+export { default } from "./InputSuffix";

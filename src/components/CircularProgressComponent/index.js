@@ -1,1 +1,1 @@
-export { default } from './CircularProgressComponent';
+export { default } from "./CircularProgressComponent";

@@ -1,1 +1,1 @@
-export { default } from './SwitchInput';
+export { default } from "./SwitchInput";

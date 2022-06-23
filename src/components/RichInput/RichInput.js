@@ -66,7 +66,7 @@ const RichInput = ({
               };
             } else {
               return {
-                text: v,
+                text: v+" ",
               };
             }
           })) ||
@@ -100,7 +100,9 @@ const RichInput = ({
   };
 
   const renderLabel = () => (
-    <Box component={"div"} className="rich-input__label-wrapper">
+    <Box component={"div"} className="rich-input__label-wrapper" onClick={()=>{
+      setFocused(false)
+    }}>
       <Typography variant="p" className="rich-input__label">
         {label}
       </Typography>
@@ -132,7 +134,7 @@ const RichInput = ({
     }
     return focused ? (
       <Box className="rich-input__dropdown">
-        {tabs.length > 1 && (
+        {(tabs.length > 1 || tabs[0] === 'Address Book') && (
           <Box className="rich-input__dropdown-tabs-wrapper">
             <TabComponent
               value={tab}
@@ -147,10 +149,15 @@ const RichInput = ({
               tabColor=""
               variant="scrollable"
             />
+            <IconButton onClick={() => {
+              setFocused(false)
+            }} style={{marginRight: '4px', marginLeft: 'auto'}}>
+            <CloseIcon />
+            </IconButton>
           </Box>
         )}
         {hasAddressBook &&
-          (tabs.length > 1 ? tab === tabs.indexOf("Address Book") : true) && (
+          (tabs.length > 1 ? tab === tabs.indexOf("Address Book") : true) && (addressBookView === "add" || addressBookView === "edit") &&  (
             <div className="rich-input__dropdown-address-book">
               <div
                 className="rich-input__dropdown-address-book-title"
@@ -215,9 +222,7 @@ const RichInput = ({
             <>
               {addressBookView === "list" && (
                 <>
-                  {addressBook.length > 0 &&
-                    tab === tabs.indexOf("Address Book") &&
-                    renderSearch()}
+                  {renderSearch(true)}
                   {addressBook.length > 0 && (
                     <Box
                       sx={{
@@ -276,8 +281,8 @@ const RichInput = ({
     ) : null;
   };
 
-  const renderSearch = () => (
-    <Box sx={{ margin: "10px" }}>
+  const renderSearch = (isAddressBook = false) => (
+    <Box className="rich-input__dropdown-search-wrapper">
       <TextField
         size="small"
         placeholder="Search..."
@@ -299,7 +304,20 @@ const RichInput = ({
             e.stopPropagation();
           }
         }}
+        style={{flex: 1}}
       />
+      {isAddressBook && (
+        <IconButton
+            onClick={() => {
+              setAddressBookView("add");
+            }}
+            style={{
+              marginLeft: '6px'
+            }}
+          >
+            <PlusIcon />
+          </IconButton>
+      )}
     </Box>
   );
 
@@ -702,10 +720,25 @@ const RichInputWrapper = styled("div")({
       //display: "none",
       zIndex: 2,
     },
+    "& .rich-input__dropdown-search-wrapper": {
+      margin: 10,
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      flexWrap: 'nowrap',
+    },
     "& .rich-input__dropdown-tabs-wrapper": {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      flexWrap: 'nowrap',
+      boxShadow: "inset 0px -2px 0px #F4F5F7",
+
       "& .MuiTabs-root": {
         background: "transparent",
-        boxShadow: "inset 0px -2px 0px #F4F5F7",
+        
       },
       "& .MuiTab-root": {
         textTransform: "initial",
@@ -946,5 +979,12 @@ const BackIcon = () => (
     />
   </svg>
 );
+
+const CloseIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10.5024 9L13.25 6.24955C13.4284 6.04679 13.5229 5.78372 13.5143 5.5138C13.5057 5.24387 13.3946 4.98736 13.2036 4.7964C13.0127 4.60544 12.7562 4.49436 12.4862 4.48574C12.2163 4.47712 11.9532 4.57161 11.7505 4.75L9.00002 7.49763L6.24461 4.7415C6.14591 4.64281 6.02875 4.56452 5.8998 4.51111C5.77085 4.4577 5.63264 4.43021 5.49307 4.43021C5.35349 4.43021 5.21528 4.4577 5.08633 4.51111C4.95738 4.56452 4.84022 4.64281 4.74152 4.7415C4.64283 4.8402 4.56454 4.95737 4.51113 5.08632C4.45772 5.21526 4.43023 5.35347 4.43023 5.49305C4.43023 5.63262 4.45772 5.77083 4.51113 5.89978C4.56454 6.02873 4.64283 6.14589 4.74152 6.24459L7.49765 9L4.75002 11.7498C4.64227 11.8461 4.5553 11.9634 4.49443 12.0945C4.43357 12.2256 4.40009 12.3677 4.39605 12.5122C4.392 12.6567 4.41748 12.8004 4.47092 12.9347C4.52435 13.069 4.60463 13.191 4.70683 13.2932C4.80903 13.3954 4.93101 13.4757 5.0653 13.5291C5.19959 13.5826 5.34338 13.608 5.48785 13.604C5.63233 13.5999 5.77446 13.5665 5.90556 13.5056C6.03665 13.4447 6.15395 13.3578 6.25027 13.25L9.00002 10.5024L11.7469 13.25C11.9463 13.4493 12.2166 13.5613 12.4985 13.5613C12.7804 13.5613 13.0507 13.4493 13.25 13.25C13.4493 13.0507 13.5613 12.7803 13.5613 12.4985C13.5613 12.2166 13.4493 11.9462 13.25 11.7469L10.5024 9Z" fill="#0B0D17"/>
+    </svg>
+
+)
 
 export default RichInput;

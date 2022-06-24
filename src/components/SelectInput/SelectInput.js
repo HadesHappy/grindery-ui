@@ -382,7 +382,7 @@ function SelectInput({
               )}
             >
               {
-                <ListSubheader>
+                <ListSubheader style={{top: '8px', paddingTop: '8px', transform: 'translateY(-8px)'}}>
                   <TextField
                     size="small"
                     autoFocus

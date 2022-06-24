@@ -566,7 +566,7 @@ const AddAddressForm = ({
         placeholder="Name"
         value={name}
         onChange={(e) => {
-          setName(e.target.value);
+          setName(e);
         }}
       />
       <InputBox
@@ -574,7 +574,7 @@ const AddAddressForm = ({
         placeholder="0x"
         value={address}
         onChange={(e) => {
-          setAddress(e.target.value);
+          setAddress(e);
         }}
       />
       <ButtonElement
@@ -635,7 +635,7 @@ const EditAddressForm = ({
         placeholder="Name"
         value={name}
         onChange={(e) => {
-          setName(e.target.value);
+          setName(e);
         }}
       />
       <InputBox
@@ -643,7 +643,7 @@ const EditAddressForm = ({
         placeholder="0x"
         value={address}
         onChange={(e) => {
-          setAddress(e.target.value);
+          setAddress(e);
         }}
       />
       <ButtonElement

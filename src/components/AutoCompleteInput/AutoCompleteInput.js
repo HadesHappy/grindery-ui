@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Autocomplete,
   Icon,
   TextField,
   InputAdornment,
   Typography,
-  ListSubheader,
-  Paper,
   Box,
   Tooltip,
 } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import { theme } from "./Style";
-import SearchIcon from "@mui/icons-material/Search";
 
 const styleDescription = {
   fontFamily: "Roboto",
@@ -29,205 +26,127 @@ function AutoCompleteInput({
   options,
   label,
   placeholder,
-  type,
   size,
   required,
   texthelper,
-  variant,
   value,
   tooltip,
   onChange,
 }) {
-  const [open, setOpen] = useState(false);
-
-  const [searchText, setSearchText] = useState("");
-
-  const [inputValue, setInputValue] = useState("");
-
-  const displayedOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const currentValue = options.find((opt) => opt.value === value) || null;
 
   const handleChange = (event, obj) => {
-    if (obj === null) {
-      onChange([]);
-    } else {
-      if (typeof obj === "string") {
-        onChange([]);
-      } else {
-        onChange(obj);
-      }
-    }
-  };
-
-  function haddleOpen(event) {
-    setOpen(true);
-  }
-
-  function haddleClose(event, reason) {
-    setOpen(false);
-    if (reason === "blur") {
-      setInputValue("");
-    }
-  }
-
-  const CustomPaper = (props) => {
-    return (
-      <Paper {...props}>
-        <ListSubheader>
-          <TextField
-            size="small"
-            autoFocus
-            placeholder="Search..."
-            fullWidth
-            value={searchText}
-            id="search-input"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-            onChange={(e) => setSearchText(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key !== "Escape") {
-                e.stopPropagation();
-              }
-            }}
-          />
-        </ListSubheader>
-        {props.children}
-      </Paper>
-    );
+    onChange((obj && obj.value) || "");
   };
 
   return (
     <ThemeProvider theme={theme}>
-      {type === "default" ? (
-        <Box component={"div"} sx={{ marginBottom: "20px" }}>
-          <Box
-            component={"div"}
-            sx={{
-              display: "flex",
-              "& > .required ": {
-                marginLeft: "auto",
-                fontSize: "14px",
-                color: "#898989",
-              },
-            }}
-          >
-            <Typography variant="p">{label}</Typography>
-            {tooltip ? (
-              <Tooltip title={tooltip} placement="top" arrow>
-                <Icon
-                  sx={{
-                    color: "#898989",
-                    fontSize: "18px",
-                    ".": { backgroundColor: "#000" },
-                  }}
-                >
-                  error
-                </Icon>
-              </Tooltip>
-            ) : (
-              ""
-            )}
-            {required ? (
-              <Typography variant="p" className="required">
-                {"(required)"}
-              </Typography>
-            ) : (
-              ""
-            )}
-          </Box>
-          <Autocomplete
-            size={size}
-            id="g-form-input"
-            onChange={handleChange}
-            value={value.length > 0 ? value : { value: "", label: "" }}
-            freeSolo
-            sx={
-              value.length > 0
-                ? {
-                    ".MuiOutlinedInput-root": {
-                      boxShadow: "inset 0px 0px 0px 1px #8C30F5",
-                      border: "1px solid #8C30F5",
-                    },
-                  }
-                : { ".MuiAutocomplete-clearIndicator": { display: "none" } }
-            }
-            options={options}
-            getOptionLabel={(option) =>
-              option.length === 1 ? option[0].label : option.label
-            }
-            loading={true}
-            loadingText="Nothing found"
-            renderOption={(props, option) => (
-              <Box
-                component="li"
+      <Box component={"div"} sx={{ marginBottom: "20px" }}>
+        <Box
+          component={"div"}
+          sx={{
+            display: "flex",
+            "& > .required ": {
+              marginLeft: "auto",
+              fontSize: "14px",
+              color: "#898989",
+            },
+          }}
+        >
+          <Typography variant="p">{label}</Typography>
+          {tooltip ? (
+            <Tooltip title={tooltip} placement="top" arrow>
+              <Icon
                 sx={{
-                  "& > img": {
-                    mr: 1,
-                    flexShrink: 0,
-                    border: "1px solid #DCDCDC",
-                    p: "4px",
-                    borderRadius: "5px",
-                  },
+                  color: "#898989",
+                  fontSize: "18px",
+                  ".": { backgroundColor: "#000" },
                 }}
-                {...props}
               >
-                {option.icon ? (
-                  typeof option.icon === "string" ? (
+                error
+              </Icon>
+            </Tooltip>
+          ) : (
+            ""
+          )}
+          {required ? (
+            <Typography variant="p" className="required">
+              {"(required)"}
+            </Typography>
+          ) : (
+            ""
+          )}
+        </Box>
+        <Autocomplete
+          size={size}
+          id="g-form-input"
+          onChange={handleChange}
+          value={currentValue}
+          sx={
+            currentValue
+              ? {
+                  ".MuiOutlinedInput-root": {
+                    boxShadow: "inset 0px 0px 0px 1px #8C30F5",
+                    border: "1px solid #8C30F5",
+                  },
+                }
+              : { ".MuiAutocomplete-clearIndicator": { display: "none" } }
+          }
+          options={options}
+          getOptionLabel={(option) =>
+            option.length === 1 ? option[0].label : option.label
+          }
+          loading={true}
+          loadingText="Nothing found"
+          renderOption={(props, option) => (
+            <Box
+              component="li"
+              sx={{
+                "& > img": {
+                  mr: 1,
+                  flexShrink: 0,
+                  border: "1px solid #DCDCDC",
+                  p: "4px",
+                  borderRadius: "5px",
+                },
+              }}
+              {...props}
+            >
+              {option.icon ? (
+                typeof option.icon === "string" ? (
+                  <img
+                    loading="lazy"
+                    width="16"
+                    height="16"
+                    src={option.icon}
+                    alt={option.label}
+                  />
+                ) : (
+                  option.icon.map((icon, i) => (
                     <img
+                      key={i}
                       loading="lazy"
                       width="16"
                       height="16"
-                      src={option.icon}
+                      src={icon}
                       alt={option.label}
+                      className={i > 0 ? "icon_second" : "icon_first"}
                     />
-                  ) : (
-                    option.icon.map((icon, i) => (
-                      <img
-                        key={i}
-                        loading="lazy"
-                        width="16"
-                        height="16"
-                        src={icon}
-                        alt={option.label}
-                        className={i > 0 ? "icon_second" : "icon_first"}
-                      />
-                    ))
-                  )
-                ) : (
-                  ""
-                )}
+                  ))
+                )
+              ) : (
+                ""
+              )}
 
-                {option.description ? (
-                  <Box
-                    component={"div"}
-                    sx={{
-                      display: "flex",
-                      position: "relative",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Typography
-                      sx={{ margin: 0, color: "#0B0D17!important" }}
-                      variant="p"
-                      title={option.label}
-                    >
-                      {option.label}
-                    </Typography>
-                    <Typography
-                      sx={styleDescription}
-                      variant="p"
-                      title={option.description}
-                    >
-                      {option.description}
-                    </Typography>
-                  </Box>
-                ) : (
+              {option.description ? (
+                <Box
+                  component={"div"}
+                  sx={{
+                    display: "flex",
+                    position: "relative",
+                    flexDirection: "column",
+                  }}
+                >
                   <Typography
                     sx={{ margin: 0, color: "#0B0D17!important" }}
                     variant="p"
@@ -235,231 +154,74 @@ function AutoCompleteInput({
                   >
                     {option.label}
                   </Typography>
-                )}
-                {option.paid ? (
+                  <Typography
+                    sx={styleDescription}
+                    variant="p"
+                    title={option.description}
+                  >
+                    {option.description}
+                  </Typography>
+                </Box>
+              ) : (
+                <Typography
+                  sx={{ margin: 0, color: "#0B0D17!important" }}
+                  variant="p"
+                  title={option.label}
+                >
+                  {option.label}
+                </Typography>
+              )}
+              {option.paid ? (
+                <Box component={"div"} className={"paid-label"}>
+                  {" "}
+                  <Typography variant="p">{"Paid"}</Typography>
+                </Box>
+              ) : (
+                ""
+              )}
+            </Box>
+          )}
+          forcePopupIcon={false}
+          renderInput={(params) => (
+            <>
+              {" "}
+              <TextField
+                {...params}
+                label=""
+                placeholder={placeholder}
+                InputProps={{
+                  ...params.InputProps,
+                  startAdornment: !currentValue ? (
+                    <InputAdornment position="start">
+                      {" "}
+                      <Icon>search</Icon>
+                    </InputAdornment>
+                  ) : currentValue.icon ? (
+                    <img
+                      loading="lazy"
+                      width="16"
+                      height="16"
+                      src={currentValue.icon}
+                      alt={currentValue.label}
+                    />
+                  ) : null,
+                }}
+              />
+              {currentValue ? (
+                currentValue.paid ? (
                   <Box component={"div"} className={"paid-label"}>
                     {" "}
                     <Typography variant="p">{"Paid"}</Typography>
                   </Box>
-                ) : (
-                  ""
-                )}
-              </Box>
-            )}
-            renderInput={(params) => (
-              <>
-                {" "}
-                <TextField
-                  {...params}
-                  label=""
-                  placeholder={placeholder}
-                  InputProps={{
-                    ...params.InputProps,
-                    startAdornment:
-                      value.length === 0 ? (
-                        <InputAdornment position="start">
-                          {" "}
-                          <Icon>search</Icon>
-                        </InputAdornment>
-                      ) : value[0].icon ? (
-                        typeof value[0].icon === "string" ? (
-                          <img
-                            loading="lazy"
-                            width="16"
-                            height="16"
-                            src={value[0].icon}
-                            alt={value[0].label}
-                          />
-                        ) : (
-                          value[0].icon.map((icon, i) => (
-                            <img
-                              key={i}
-                              loading="lazy"
-                              width="16"
-                              height="16"
-                              src={icon}
-                              alt={value[0].label}
-                              className={i > 0 ? "icon_second" : "icon_first"}
-                            />
-                          ))
-                        )
-                      ) : (
-                        ""
-                      ),
-                  }}
-                />
-                {value.length > 0 ? (
-                  value[0].paid !== undefined ? (
-                    <Box component={"div"} className={"paid-label"}>
-                      {" "}
-                      <Typography variant="p">{"Paid"}</Typography>
-                    </Box>
-                  ) : (
-                    ""
-                  )
-                ) : (
-                  ""
-                )}
-              </>
-            )}
-          />
-          <Typography variant="span" className="texthelper">
-            {texthelper}
-          </Typography>
-        </Box>
-      ) : (
-        <Box component={"div"} sx={{ marginBottom: "20px" }}>
-          <Box
-            component={"div"}
-            sx={{
-              display: "flex",
-              "& > .required ": {
-                marginLeft: "auto",
-                fontSize: "14px",
-                color: "#898989",
-              },
-            }}
-          >
-            <Typography variant="p">{label}</Typography>
-            {tooltip ? (
-              <Tooltip title={tooltip} placement="top" arrow>
-                <Icon
-                  sx={{
-                    color: "#898989",
-                    fontSize: "18px",
-                    ".": { backgroundColor: "#000" },
-                  }}
-                >
-                  error
-                </Icon>
-              </Tooltip>
-            ) : (
-              ""
-            )}
-            {required ? (
-              <Typography variant="p" className="required">
-                {"(required)"}
-              </Typography>
-            ) : (
-              ""
-            )}
-          </Box>
-          <Autocomplete
-            multiple
-            id="tags-filled"
-            options={options}
-            onChange={handleChange}
-            onOpen={haddleOpen}
-            onClose={haddleClose}
-            open={open}
-            /*
-        PaperComponent={CustomPaper}*/
-            disableClearable={true}
-            clearOnBlur={true}
-            freeSolo
-            value={value}
-            sx={
-              value.length > 0
-                ? {
-                    ".MuiFilledInput-root": {
-                      boxShadow: "inset 0px 0px 0px 1px #8C30F5",
-                      border: "1px solid #8C30F5",
-                    },
-                  }
-                : {}
-            }
-            getOptionLabel={(option) => (option.label ? option.label : "")}
-            renderTags={(value) =>
-              value.map((option, index) => (
-                <Box
-                  component="li"
-                  key={option.value}
-                  sx={{
-                    "& > img": {
-                      mr: 1,
-                      flexShrink: 0,
-                      border: "1px solid #DCDCDC",
-                      p: "4px",
-                      borderRadius: "5px",
-                    },
-                  }}
-                >
-                  {option.icon ? (
-                    typeof option.icon === "string" ? (
-                      <img
-                        loading="lazy"
-                        width="16"
-                        height="16"
-                        src={option.icon}
-                        alt={option.label}
-                      />
-                    ) : (
-                      option.icon.map((icon, i) => (
-                        <img
-                          key={i}
-                          loading="lazy"
-                          width="16"
-                          height="16"
-                          src={icon}
-                          alt={option.label}
-                          className={i > 0 ? "icon_second" : "icon_first"}
-                        />
-                      ))
-                    )
-                  ) : (
-                    ""
-                  )}
-                  {typeof option === "string" ? option : option.label}
-                </Box>
-              ))
-            }
-            renderOption={(props, option) => (
-              <Box component="div" key={option.value} {...props}>
-                <Box component="div" className="full_img_box">
-                  {option.icon ? (
-                    typeof option.icon === "string" ? (
-                      <img
-                        loading="lazy"
-                        width="16"
-                        height="16"
-                        src={option.icon}
-                        alt={option.label}
-                      />
-                    ) : (
-                      option.icon.map((icon, i) => (
-                        <img
-                          key={icon}
-                          loading="lazy"
-                          width="16"
-                          height="16"
-                          src={icon}
-                          alt={option.label}
-                          className={i > 0 ? "icon_second" : "icon_first"}
-                        />
-                      ))
-                    )
-                  ) : (
-                    ""
-                  )}
-                  {variant === "full" ? <h5>{option.label}</h5> : option.label}
-                  {variant === "full" ? <span>{option.reference}</span> : ""}
-                </Box>
-              </Box>
-            )}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="filled"
-                placeholder={value.length === 0 ? placeholder : ""}
-                value={inputValue}
-              />
-            )}
-          />
-          <Typography variant="span" className="texthelper">
-            {texthelper}
-          </Typography>
-        </Box>
-      )}
+                ) : null
+              ) : null}
+            </>
+          )}
+        />
+        <Typography variant="span" className="texthelper">
+          {texthelper}
+        </Typography>
+      </Box>
     </ThemeProvider>
   );
 }
@@ -471,13 +233,9 @@ AutoCompleteInput.propTypes = {
   texthelper: PropTypes.string,
   required: PropTypes.bool,
   size: PropTypes.string,
-  value: PropTypes.array,
-  handleChange: PropTypes.func,
-  type: PropTypes.string,
-};
-
-AutoCompleteInput.defaultProps = {
-  type: "default",
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  tooltip: PropTypes.string
 };
 
 export default AutoCompleteInput;

@@ -93,6 +93,12 @@ function App() {
 
   const [value, setValue] = React.useState([]);
 
+  const [autocompleteValue, setAutocompleteValue] = React.useState("");
+
+  const [selectValue, setSelectValue] = React.useState("");
+
+  const [multiSelectValue, setMultiSelectValue] = React.useState(['']);
+
   const [richInputValue, setRichInputValue] = React.useState("");
 
   const [switchValue, setSwitchValue] = React.useState(false);
@@ -212,17 +218,19 @@ function App() {
         <AutoCompleteInput
           options={options}
           label={"Connect with..."}
-          value={value}
+          value={autocompleteValue}
           texthelper="You must have column headers"
           placeholder={"Search for an App"}
-          onChange={handleChange}
+          onChange={(v)=>{
+            setAutocompleteValue(v)
+          }}
           required={true}
         ></AutoCompleteInput>
         <InputBox
           icon={"search"}
           type={"input-icon"}
           value={textValue}
-          onChange={(e) => setTextValue(e.target.value)}
+          onChange={(v) => setTextValue(v)}
           label="Connect with..."
           texthelper="You must have column headers"
           required={true}
@@ -231,37 +239,46 @@ function App() {
           options={options}
           type={"searchLabel"}
           multiple={true}
-          value={value}
+          value={multiSelectValue}
           texthelper="You must have column headers"
-          onChange={handleChange}
+          onChange={(v)=>{
+            setMultiSelectValue(v)
+          }}
           label={"Connect with..."}
           placeholder={"0x"}
         ></SelectInput>
         <SelectInput
           options={options}
           type={"default"}
-          value={value}
+          value={selectValue}
           label={"Connect with..."}
           required={true}
           texthelper="You must have column headers"
-          onChange={handleChange}
+          onChange={v=>{
+            setSelectValue(v)
+          }}
           placeholder={"Choose sheet..."}
         ></SelectInput>
+
+        <RichInput
+          required
+          label="Some Label"
+          value={richInputValue}
+          options={richInputOptions}
+          placeholder="Enter some value here"
+          tooltip="Some tooltip with long text. Bla bla bla."
+          hasAddressBook
+          user="123:123"
+          onChange={(val) => {
+            setRichInputValue(val);
+          }}
+          addressBook={addressBook}
+          setAddressBook={setAddressBook}
+        />
 
         {/*<AutoCompleteInput options={options} label={'Connect with...'}  value={value}  texthelper="You must have column headers" placeholder={"Search for an App"} onChange={handleChange} required={true}></AutoCompleteInput>
      
       */}
-        <AutoCompleteInput
-          options={options}
-          variant={"full"}
-          type={"searchLabel"}
-          label={"Connect with..."}
-          value={value}
-          texthelper="You must have column headers"
-          placeholder={"Search for an App"}
-          onChange={handleChange}
-          required={true}
-        ></AutoCompleteInput>
 
         {/*
         
@@ -342,35 +359,6 @@ function App() {
           disabled={false}
         />
       </PaperBox>
-
-      <div
-        style={{
-          maxWidth: "375px",
-          boxSizing: "border-box",
-          margin: "50px auto",
-          padding: "20px",
-          border: "1px solid #ddd",
-        }}
-      >
-        <div style={{ margin: "0 0 30px", textAlign: "left", opacity: 0.5 }}>
-          &lt;RichInput&gt; component example
-        </div>
-        <RichInput
-          required
-          label="Some Label"
-          value={richInputValue}
-          options={richInputOptions}
-          placeholder="Enter some value here"
-          tooltip="Some tooltip with long text. Bla bla bla."
-          hasAddressBook
-          user="123:123"
-          onChange={(val) => {
-            setRichInputValue(val);
-          }}
-          addressBook={addressBook}
-          setAddressBook={setAddressBook}
-        />
-      </div>
     </div>
   );
 }

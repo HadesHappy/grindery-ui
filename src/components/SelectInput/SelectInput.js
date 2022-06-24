@@ -46,8 +46,16 @@ function SelectInput({
     option.label.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  const currentValue = multiple
+    ? options.filter((opt) => value.includes(opt.value))
+    : options.find((opt) => opt.value === value) || "";
+
   const handleChange = (event) => {
-    onChange(event.target.value);
+    onChange(
+      multiple
+        ? event.target.value.map((v) => v.value)
+        : event.target.value.value
+    );
   };
 
   return (
@@ -90,7 +98,7 @@ function SelectInput({
             )}
           </Box>
           <FormControl fullWidth>
-            {value.length === 0 ? (
+            {currentValue.length === 0 ? (
               <InputLabel disableAnimation shrink={false} focused={false}>
                 {placeholder}
               </InputLabel>
@@ -106,63 +114,65 @@ function SelectInput({
                 },
               }}
               labelId="search-select-label"
-              id={value.length !== 0 ? "search-select" : "search-select-empty"}
-              sx={value.length !== 0 ? { border: "0px" } : {}}
-              value={value}
+              id={currentValue.length !== 0 ? "search-select" : "search-select-empty"}
+              sx={currentValue.length !== 0 ? { border: "0px" } : {}}
+              value={currentValue}
               multiple={multiple}
               onChange={handleChange}
               onClose={() => setSearchText("")}
               renderValue={() => (
                 <Box component={"div"} className="boxItems">
-                  {value.map((option, i) => (
-                    <Box
-                      key={option.value}
-                      component="div"
-                      className="img_box_icon"
-                      sx={{
-                        "& > img": {
-                          mr: 1,
-                          flexShrink: 0,
-                          border: "1px solid #DCDCDC",
-                          p: "4px",
-                          borderRadius: "5px",
-                        },
-                      }}
-                    >
-                      {option.icon ? (
-                        typeof option.icon === "string" ? (
-                          <img
-                            loading="lazy"
-                            width="16"
-                            height="16"
-                            src={option.icon}
-                            alt={option.label}
-                          />
-                        ) : (
-                          option.icon.map((icon, i) => (
+                  {(multiple ? currentValue : [currentValue]).map(
+                    (option, i) => (
+                      <Box
+                        key={option.value}
+                        component="div"
+                        className="img_box_icon"
+                        sx={{
+                          "& > img": {
+                            mr: 1,
+                            flexShrink: 0,
+                            border: "1px solid #DCDCDC",
+                            p: "4px",
+                            borderRadius: "5px",
+                          },
+                        }}
+                      >
+                        {option.icon ? (
+                          typeof option.icon === "string" ? (
                             <img
-                              key={i}
                               loading="lazy"
                               width="16"
                               height="16"
-                              src={icon}
+                              src={option.icon}
                               alt={option.label}
-                              className={i > 0 ? "icon_second" : "icon_first"}
                             />
-                          ))
-                        )
-                      ) : (
-                        ""
-                      )}
-                      <Typography
-                        sx={{ margin: 0, color: "#0B0D17!important" }}
-                        variant="p"
-                        title={option.label}
-                      >
-                        {option.label}
-                      </Typography>
-                    </Box>
-                  ))}
+                          ) : (
+                            option.icon.map((icon, i) => (
+                              <img
+                                key={i}
+                                loading="lazy"
+                                width="16"
+                                height="16"
+                                src={icon}
+                                alt={option.label}
+                                className={i > 0 ? "icon_second" : "icon_first"}
+                              />
+                            ))
+                          )
+                        ) : (
+                          ""
+                        )}
+                        <Typography
+                          sx={{ margin: 0, color: "#0B0D17!important" }}
+                          variant="p"
+                          title={option.label}
+                        >
+                          {option.label}
+                        </Typography>
+                      </Box>
+                    )
+                  )}
                 </Box>
               )}
             >
@@ -285,7 +295,7 @@ function SelectInput({
             )}
           </Box>
           <FormControl fullWidth>
-            {value.length === 0 ? (
+            {currentValue.length === 0 ? (
               <InputLabel disableAnimation shrink={false} focused={false}>
                 {placeholder}
               </InputLabel>
@@ -301,65 +311,73 @@ function SelectInput({
                 },
               }}
               labelId="search-select-label"
-              id={value.length !== 0 ? "search-select" : "search-select-empty"}
-              value={value}
-              sx={value.length > 0 ? { border: "0" } : {}}
+              id={
+                currentValue.length !== 0
+                  ? "search-select"
+                  : "search-select-empty"
+              }
+              value={currentValue}
+              sx={currentValue.length > 0 ? { border: "0" } : {}}
               multiple={multiple}
               onChange={handleChange}
               onClose={() => setSearchText("")}
               renderValue={() => (
                 <Box component={"div"} className="boxItems">
-                  {value.map((option, i) => (
-                    <Box
-                      key={option.value}
-                      component="div"
-                      className={
-                        variant === "default" ? "img_box_icon" : "full_img_box"
-                      }
-                      sx={{
-                        "& > img": {
-                          mr: 1,
-                          flexShrink: 0,
-                          border: "1px solid #DCDCDC",
-                          p: "4px",
-                          borderRadius: "5px",
-                        },
-                      }}
-                    >
-                      {option.icon ? (
-                        typeof option.icon === "string" ? (
-                          <img
-                            loading="lazy"
-                            width="16"
-                            height="16"
-                            src={option.icon}
-                            alt={option.label}
-                          />
-                        ) : (
-                          option.icon.map((icon, i) => (
+                  {(multiple ? currentValue : [currentValue]).map(
+                    (option, i) => (
+                      <Box
+                        key={option.value}
+                        component="div"
+                        className={
+                          variant === "default"
+                            ? "img_box_icon"
+                            : "full_img_box"
+                        }
+                        sx={{
+                          "& > img": {
+                            mr: 1,
+                            flexShrink: 0,
+                            border: "1px solid #DCDCDC",
+                            p: "4px",
+                            borderRadius: "5px",
+                          },
+                        }}
+                      >
+                        {option.icon ? (
+                          typeof option.icon === "string" ? (
                             <img
-                              key={i}
                               loading="lazy"
                               width="16"
                               height="16"
-                              src={icon}
+                              src={option.icon}
                               alt={option.label}
-                              className={i > 0 ? "icon_second" : "icon_first"}
                             />
-                          ))
-                        )
-                      ) : (
-                        ""
-                      )}
-                      <Typography
-                        sx={{ margin: 0, color: "#0B0D17!important" }}
-                        variant="p"
-                        title={option.label}
-                      >
-                        {option.label}
-                      </Typography>
-                    </Box>
-                  ))}
+                          ) : (
+                            option.icon.map((icon, i) => (
+                              <img
+                                key={i}
+                                loading="lazy"
+                                width="16"
+                                height="16"
+                                src={icon}
+                                alt={option.label}
+                                className={i > 0 ? "icon_second" : "icon_first"}
+                              />
+                            ))
+                          )
+                        ) : (
+                          ""
+                        )}
+                        <Typography
+                          sx={{ margin: 0, color: "#0B0D17!important" }}
+                          variant="p"
+                          title={option.label}
+                        >
+                          {option.label}
+                        </Typography>
+                      </Box>
+                    )
+                  )}
                 </Box>
               )}
             >

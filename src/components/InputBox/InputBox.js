@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Typography,
   TextField,
@@ -23,6 +23,23 @@ function InputBox({
   icon,
   tooltip,
 }) {
+  const [currentValue, setCurrentValue] = useState(value);
+  
+  const handleChange = (e) => {
+    setCurrentValue(e.target.value);
+  };
+
+  const changeValue = useCallback(
+    (val) => {
+      onChange(val);
+    },
+    [onChange]
+  );
+
+  useEffect(() => {
+    changeValue(currentValue);
+  }, [currentValue, changeValue]);
+
   return (
     <ThemeProvider theme={theme}>
       <Box component={"div"} sx={{ marginBottom: "20px" }}>
@@ -65,18 +82,18 @@ function InputBox({
           <TextField
             fullWidth
             placeholder={placeholder}
-            className={value !== "" ? "input-filled" : ""}
+            className={currentValue !== "" ? "input-filled" : ""}
             size={size}
-            onChange={onChange}
-            value={value}
-            sx={value !== "" ? { background: "#000" } : ""}
+            onChange={handleChange}
+            value={currentValue}
+            sx={currentValue !== "" ? { background: "#000" } : ""}
           />
         ) : type === "textarea" ? (
           <TextField
             placeholder={placeholder}
             size={size}
-            onChange={onChange}
-            value={value}
+            onChange={handleChange}
+            value={currentValue}
             multiline
             rows={3}
             maxRows={4}
@@ -84,7 +101,7 @@ function InputBox({
         ) : (
           <TextField
             placeholder={placeholder}
-            classes={{ root: value !== "" ? "input-filled" : "" }}
+            classes={{ root: currentValue !== "" ? "input-filled" : "" }}
             sx={{
               background: "#F4F5F7",
               borderRadius: "5px",
@@ -104,8 +121,8 @@ function InputBox({
               },
             }}
             size={size}
-            onChange={onChange}
-            value={value}
+            onChange={handleChange}
+            value={currentValue}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

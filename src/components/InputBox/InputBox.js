@@ -86,7 +86,6 @@ function InputBox({
             size={size}
             onChange={handleChange}
             value={currentValue}
-            sx={currentValue !== "" ? { background: "#000" } : ""}
           />
         ) : type === "textarea" ? (
           <TextField

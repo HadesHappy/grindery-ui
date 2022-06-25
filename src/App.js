@@ -235,6 +235,28 @@ function App() {
           texthelper="You must have column headers"
           required={true}
         ></InputBox>
+
+        <InputBox
+          icon={"text"}
+          type={"text"}
+          value={textValue}
+          onChange={(v) => setTextValue(v)}
+          label="Connect with..."
+          texthelper="You must have column headers"
+          required={true}
+        ></InputBox>
+
+
+        <InputBox
+          icon={"textarea"}
+          type={"textarea"}
+          value={textValue}
+          onChange={(v) => setTextValue(v)}
+          label="Connect with..."
+          texthelper="You must have column headers"
+          required={true}
+        ></InputBox>
+
         <SelectInput
           options={options}
           type={"searchLabel"}

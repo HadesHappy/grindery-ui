@@ -38,7 +38,6 @@ export const theme = createTheme({
         root: {
           marginTop: "4px",
           padding: "0px",
-          height: "60px",
           "& input": {
             padding: "15px 5px 15px 15px",
             border: "1px solid #DCDCDC",

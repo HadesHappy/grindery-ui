@@ -114,7 +114,11 @@ function SelectInput({
                 },
               }}
               labelId="search-select-label"
-              id={currentValue.length !== 0 ? "search-select" : "search-select-empty"}
+              id={
+                currentValue.length !== 0
+                  ? "search-select"
+                  : "search-select-empty"
+              }
               sx={currentValue.length !== 0 ? { border: "0px" } : {}}
               value={currentValue}
               multiple={multiple}
@@ -382,7 +386,27 @@ function SelectInput({
               )}
             >
               {
-                <ListSubheader style={{top: '8px', paddingTop: '8px', transform: 'translateY(-8px)'}}>
+                <MenuItem
+                  dense
+                  style={{
+                    top: "10px",
+                    paddingTop: "10px",
+                    transform: "translateY(-12px)",
+                    position: "sticky",
+                    background: "#fff",
+                    zIndex: 1,
+                    marginTop: 0,
+                    cursor: "default",
+                  }}
+                  onKeyDown={(e) => {
+                    e.stopPropagation();
+                    console.log("stoped");
+                  }}
+                  onClickCapture={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                >
                   <TextField
                     size="small"
                     autoFocus
@@ -403,7 +427,7 @@ function SelectInput({
                       }
                     }}
                   />
-                </ListSubheader>
+                </MenuItem>
               }
               {displayedOptions.map((option, i) => (
                 <MenuItem key={option.value} value={option}>

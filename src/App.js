@@ -36,6 +36,8 @@ function App() {
       icon: "./assets/img/molochdao.png",
     },
     { value: "3", label: "Google", icon: "./assets/img/google.png" },
+    { value: "4", label: "Gmail", icon: "./assets/img/google.png" , group: "Coming soon" , disabled: true},
+    { value: "5", label: "Google Meet", icon: "./assets/img/google.png",  group: "Coming soon" , disabled: true},
   ];
 
   const richInputOptions = [
@@ -124,7 +126,12 @@ function App() {
     setSwitchValue(event.target.checked);
   }
 
-  function handleClick() {}
+  function handleClick() {
+
+    setTextValue('hello')
+    console.log(textValue)
+
+  }
 
   function handleClose(event) {
     console.log(event);
@@ -132,6 +139,7 @@ function App() {
 
   function onChangeText(event) {
     setValueInput(event.target.value);
+   
   }
 
   function handleChangeMoney(event) {
@@ -221,6 +229,7 @@ function App() {
           value={autocompleteValue}
           texthelper="You must have column headers"
           placeholder={"Search for an App"}
+          buttonSuggestion
           onChange={(v)=>{
             setAutocompleteValue(v)
           }}
@@ -329,7 +338,7 @@ function App() {
           size="large"
         />
         <ButtonElement
-          value={"Back"}
+          value={"HEY CLICK"}
           variant="contained"
           color="primary"
           size="large"

@@ -129,7 +129,16 @@ export const theme = createTheme({
             fontSize: "8px",
             margin: "0px",
             display: "flex",
+          }
+        },
+        listbox:{
+          "& > li:first-child > .MuiListSubheader-root":{
+            border:"0px",
+            padding:'0px',
           },
+          '& .MuiAutocomplete-option[aria-disabled="true"]':{
+            opacity:1
+          }
         },
         option: {
           fontSize: "16px",
@@ -207,7 +216,27 @@ export const theme = createTheme({
             overflow: "inherit",
             whiteSpace: "inherit",
             width: "inherit",
-          },
+
+          }
+        },
+        groupLabel:{
+          marginLeft: "10px",
+          marginRight: "10px",
+          marginTop: "10px",
+          padding:'8px 0px',
+          borderTop: "1px solid #DCDCDC",
+          fontFamily: 'Roboto',
+          fontStyle: "normal",
+          fontWeight: "400",
+          fontSize: "14px",
+          lineHeight: "150%",
+          color: "#898989"
+        },
+        groupUl:{
+          padding: "0px",
+          '& > .MuiAutocomplete-option':{
+            paddingLeft: "15px",
+          }
         },
         input: {
           padding: "15px 70px 15px 5px!important",

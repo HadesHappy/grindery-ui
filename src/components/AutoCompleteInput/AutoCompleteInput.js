@@ -7,6 +7,8 @@ import {
   Typography,
   Box,
   Tooltip,
+  Paper,
+  Button,
 } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import PropTypes from "prop-types";
@@ -22,6 +24,21 @@ const styleDescription = {
   margin: "0px",
 };
 
+const styleButton = {
+  fontFamily: 'Roboto',
+  fontStyle: 'normal',
+  fontWeight: '700',
+  fontSize: '14px',
+  lineHeight: '150%',
+  textAlign: 'center',
+  color: '#0B0D17',
+  border: '1px solid #898989',
+  borderRadius: '5px',
+  margin: '8px 10px',
+  width: 'calc( 100% - 20px)',
+  padding:'10px 0px'
+}
+
 function AutoCompleteInput({
   options,
   label,
@@ -31,9 +48,22 @@ function AutoCompleteInput({
   texthelper,
   value,
   tooltip,
+  buttonSuggestion,
   onChange,
 }) {
   const currentValue = options.find((opt) => opt.value === value) || null;
+
+  const PaperComponentCustom = options => {
+    return (
+      <Paper {...options.containerProps}>
+        {options.children}
+        {buttonSuggestion && (
+            <Button sx={styleButton}>Suggers most Apps</Button>
+           
+        )}
+      </Paper>
+    );
+  };
 
   const handleChange = (event, obj) => {
     onChange((obj && obj.value) || "");
@@ -82,6 +112,8 @@ function AutoCompleteInput({
           id="g-form-input"
           onChange={handleChange}
           value={currentValue}
+          PaperComponent={PaperComponentCustom}
+          filterOptions={(options, params) => { return options.filter(option => option.label.toLowerCase().includes(params.inputValue.toLowerCase()) && !option.group ).concat(options.filter(option => option.group )) }}
           sx={
             currentValue
               ? {
@@ -93,12 +125,16 @@ function AutoCompleteInput({
               : { ".MuiAutocomplete-clearIndicator": { display: "none" } }
           }
           options={options}
+          groupBy={(option) => option.group}
+          getOptionDisabled={(option) => option.disabled}
           getOptionLabel={(option) =>
             option.length === 1 ? option[0].label : option.label
           }
           loading={true}
           loadingText="Nothing found"
           renderOption={(props, option) => (
+            <>
+            {console.log(props)}
             <Box
               component="li"
               sx={{
@@ -179,7 +215,9 @@ function AutoCompleteInput({
               ) : (
                 ""
               )}
+              
             </Box>
+           </>
           )}
           forcePopupIcon={false}
           renderInput={(params) => (
@@ -235,7 +273,8 @@ AutoCompleteInput.propTypes = {
   size: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
-  tooltip: PropTypes.string
+  tooltip: PropTypes.string,
+  buttonSuggestion: PropTypes.bool
 };
 
 export default AutoCompleteInput;

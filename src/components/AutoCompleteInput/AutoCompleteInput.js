@@ -36,7 +36,8 @@ const styleButton = {
   borderRadius: '5px',
   margin: '8px 10px',
   width: 'calc( 100% - 20px)',
-  padding:'10px 0px'
+  padding:'10px 0px',
+  textTransform: 'none',
 }
 
 function AutoCompleteInput({
@@ -58,7 +59,7 @@ function AutoCompleteInput({
       <Paper {...options.containerProps}>
         {options.children}
         {buttonSuggestion && (
-            <Button sx={styleButton}>Suggers most Apps</Button>
+            <Button sx={styleButton}>Suggest an App</Button>
            
         )}
       </Paper>

@@ -114,7 +114,6 @@ function AutoCompleteInput({
           onChange={handleChange}
           value={currentValue}
           PaperComponent={PaperComponentCustom}
-          filterOptions={(options, params) => { return options.filter(option => option.label.toLowerCase().includes(params.inputValue.toLowerCase()) && !option.group ).concat(options.filter(option => option.group )) }}
           sx={
             currentValue
               ? {
